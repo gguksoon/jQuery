@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/mystyle.css">
+<script src="../js/jquery-3.4.1.min.js"></script>
+<style>
+	#result1 {
+		background: yellow;
+	}
+</style>
+<script>
+	$(function() {
+		$('#btn1').click(function() {
+			$('#result1').empty();
+		})
+
+		$('#btn2').click(function() {
+			$('#result1').remove();
+		})
+		
+		$('.pp').click(function() {
+			$(this).css('font-size', '+=5');
+		})
+		
+		$('#btn3').click(function() {
+			a = $('#p1').remove();
+			
+			$('.box').append(a);
+		})
+		
+		$('#btn4').click(function() {
+			a = $('#p2').detach();
+			
+			$(a).appendTo('.box');
+		})
+		
+		$('#btn5').click(function() {
+			a = $('#p3').clone();
+			
+			$('#result4').append(a);
+		})
+		
+		$('#btn6').click(function() {
+			a = $('#p4').clone(true);
+			
+			$('#result4').append(a);
+		})
+	})
+</script>
+</head>
+<body>
+	<div class="box">
+		<h2>empty()와 remove()</h2>
+		- empty(): 일치된 모든 요소들의 자식 Content를 삭제한다. <br>
+		- remove(): 일치된 모든 요소들을 DOM에서 삭제한다. <br>
+		- remove(selector): 일치되는 요소 중 selector에 일치하는 요소를 삭제한다. <br>
+		
+		<div id="result1">
+			<p>무궁화 꽃이 피었습니다.</p>
+			<p>장미꽃도 피었습니다.</p>
+		</div>
+		<br>
+		<button id="btn1" type="button">empty()</button>
+		<button id="btn2" type="button">remove()</button>
+	</div>
+	
+	<div class="box">
+		<h2>remove()와 detach()</h2>
+		- remove(): 일치된 모든 요소들을 DOM에서 삭제한다. <br>
+		- detach(): remove()와 같지만 이벤트 핸들러등의 정보는 삭제되지 않는다. <br>
+		<br>
+		- p태그의 문자열을 클릭하면 글자크기를 증가시킨다. <br>
+		<div id="result2">
+			<p id="p1" class="pp">무궁화 꽃이 피었습니다.</p>
+			<p id="p2" class="pp">장미꽃도 피었습니다.</p>
+		</div>
+		<br>
+		<button id="btn3" type="button">p1 remove()</button>
+		<button id="btn4" type="button">p2 detach()</button>
+	</div>
+	
+	<div class="box">
+		<h2>clone()</h2>
+		- clone(): 일치된 요소를 복사하고, 그를 선택한다.
+  		- clone(bool): 이벤트 처리기를 포함하여 DOM 요소를 복사하고 그를 선택한다.
+		<br>
+		- p태그의 문자열을 클릭하면 글자크기를 증가시킨다. <br>
+		<div id="result3">
+			<p id="p3" class="pp">무궁화 꽃이 피었습니다.</p>
+			<p id="p4" class="pp">장미꽃도 피었습니다.</p>
+		</div>
+		<br>
+		<button id="btn5" type="button">p1 clone()</button>
+		<button id="btn6" type="button">p2 clone(true)</button>
+		
+		<div id="result4"></div>
+	</div>
+</body>
+</html>

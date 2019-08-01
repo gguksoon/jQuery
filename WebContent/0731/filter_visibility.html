@@ -9,11 +9,12 @@
 	$(function() {
 		$('#btn1').click(function() {
 			res = "";
-			$('body :hidden').each(function(i) {
+			$('.box :hidden').each(function(i) {
 				//res += i + "번째 문자열: " + $(this).text() + ", ";
 				//res += this.tagName + "<br>";
 				if(this.tagName != "BR") {
-					res += i + "번째 문자열: " + $(this).text() + "<br>";
+					res += i + "번째 문자열: " + $(this).text() + ", ";
+					res += this.tagName + "<br>"; // 태그이름은 대문자로 출력됨
 				}
 			})
 			$('#result1').html(res);
@@ -21,11 +22,13 @@
 		
 		$('#btn2').click(function() {
 			res = "";
-			$('body :visible').each(function(i) {
+			$('.box :visible').each(function(i) {
 				if(this.tagName != "BR") {
-					res += i + "번째 문자열: " + $(this).text() + "<br>";
+					res += i + "번째 문자열: " + $(this).text() + ", ";
+					res += this.tagName + "<br>";
 				}
 			})
+			$('#result2').html(res);
 		})
 	})
 </script>
