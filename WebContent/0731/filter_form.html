@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/mystyle.css">
+<script src="../js/jquery-3.4.1.min.js"></script>
+<script>
+	$(function() {
+		$('#btn1').click(function() {
+			$('form :enabled').css('border', '3px solid lime');
+			$('form :disabled').css('border', 'none');
+			$('#btn1').prop('disabled', true).css('opacity', '0.5');
+			$('#btn2').prop('disabled', false).css('opacity', '1');
+		})
+		
+		$('#btn2').click(function() {
+			$('form :disabled').css('border', '3px solid crimson');
+			$('form :enabled').css('border', 'none');
+			$('#btn1').prop('disabled', false).css('opacity', '1');
+			$('#btn2').prop('disabled', true).css('opacity', '0.5');
+		})
+	})
+</script>
+</head>
+<body>
+	<div class="box">
+		<h3>form 상태필터</h3>
+		<p> :disabled - 접근 불가</p>
+		<p> :enabled - 접근 가능, 모든 요소의 기본값</p>
+		<br>
+		<p> form의 전송기능: button / button type=submit / input type=image / input type=submit</p>
+		<br>
+		<div>
+			<form action="test.jsp" method="post"> 
+				<input type="button" name="disButton" value="Input Button" disabled><br>
+				<input type="checkbox" name="enCheckbox">체크<br>
+				<input type="file" name="disFile"><br>
+				<input type="hidden" name="enHidden" value=""> <br>
+				<input type="image" src="../images/image.1.jpg" alt="Submit"><br>
+				<input type="password"  value="1111" name="enPassword" disabled > <br>
+				<input type="radio" name="disRadio"  value="남"> 남<br>
+				<input type="radio" name="disRadio"  value="여"> 여<br>
+				<input type="reset" name="enReset" value="취소"><br>
+				<input type="submit" name="disSubmit" value="제출" disabled> <br>
+				<input type="text" name="enText" value="input text"> <br>
+				<select name="disSelect" disabled>
+					<option>Option</option>
+					<option>Option</option>
+					<option>Option</option>
+					<option>Option</option>
+					<option>Option</option>
+				</select>
+				<br>
+				<textarea name="enTextarea" rows=10 cols=20 >text</textarea><br>
+				<button name="disButton2" onclick="javascript:alert('aaaaa');">Button</button><br>
+			</form>
+		</div>
+		<br>
+		<button id="btn1" type="button">사용가능</button>
+		<button id="btn2" type="button">사용불가능</button>
+	</div>
+	
+</body>
+</html>

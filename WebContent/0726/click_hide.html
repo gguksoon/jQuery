@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.4.1.min.js"></script>
+<script>
+	$(function(){ // 콜백함수
+		$('h2').on('click', function() {
+			//$(this).css('display', 'none'); // css에 적용
+			$(this).hide(); // script에 적용
+			
+			if($('h2:visible').length == 0) {
+				//$('button').css('display', 'block');
+				$('button').show();
+			}
+			
+			$('button').on('click', function() {
+				$('h2').show();
+				//$('button').hide();
+				$(this).hide();
+			})
+		})
+		
+	})
+	
+	
+
+</script>
+
+<style>
+	button {
+		display: none;
+	}
+</style>
+</head>
+<body>
+	<h2> 클릭하면 사라집니다1 </h2>
+	<h2> 클릭하면 사라집니다2 </h2>
+	<h2> 클릭하면 사라집니다3 </h2>
+	<h2> 클릭하면 사라집니다4 </h2>
+	<h2> 클릭하면 사라집니다5 </h2>
+	<h2> 클릭하면 사라집니다6 </h2>
+	<h2> 클릭하면 사라집니다7 </h2>
+	<h2> 클릭하면 사라집니다8 </h2>
+	<h2> 클릭하면 사라집니다9 </h2>
+	<h2> 클릭하면 사라집니다10 </h2>
+	
+	<button type="button">보이기</button>
+</body>
+</html>

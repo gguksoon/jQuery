@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.4.1.min.js"></script>
+<script>
+	$(function() {
+		hlist = document.getElementsByTagName('h1')[0];
+		hlist.style.backgroundColor = 'yellow';
+		//hlist.css('color', 'red'); // 불가능, dom객체(hlist)에 jquery(.css)메서드를 사용할 수 없다.
+		$(hlist).css('color', 'red');
+	})
+</script>
+<style>
+	pre {
+		font-size: 1.5em;
+		background: skyblue;
+		border-top: 3px solid blue;
+		border-bottom: 3px solid blue;
+		padding-top: 20px;
+		padding-bottom: 20px;
+	}
+</style>
+</head>
+<body>
+<pre>
+	hlist = document.getElementsByTagName('h1')[0];
+	hlist는 dom객체이다.
+	
+	dom객체로 jQuery메소드를 호출하기 위해서는
+	dom객체를 $()로 감싸줘야 한다.
+	
+	hlist.css() ==> 오류
+	$(hlist).css() ==> 가능
+</pre>
+	<h1>맛있는 점심이 기다리고 있나요?</h1>
+	<h1>졸고 있는 사람은 손들어 봐요</h1>
+</body>
+</html>

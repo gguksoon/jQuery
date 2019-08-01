@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src = "../js/jquery-3.4.1.min.js"></script>
+<script>
+	// document.getElementById('hh1').style.backgroundColor = 'yellow'; 
+	// 위 문장은 에러가 발생함. script->body->css가 실행되는데 body가 실행되지 않았으므로 
+	// 아래처럼 작성한다.
+	window.onload = function() { // document(body)가 생성된 뒤
+		document.getElementById('hh1').style.backgroundColor = 'yellow';
+	}
+	
+	// 위 function의 내용 jQuery로 사용
+	window.onload = function() {
+		//jQuery('#hh1').css('background', 'blue');
+		//$('#hh1').css('background', 'blue');
+		//$('#hh1').css('background-color', 'blue'); // 위 2가지와 같은 의미
+	}
+	
+	// 위 function을 jQuery로 사용
+	$(document).ready(function() {
+		$('#hh1').css('background', 'green').css('color', 'yellow'); // 두 가지를 한번에 적용
+	})
+	
+	// 위 function을 더 간략히 사용
+	$(function() {
+		$('#hh1').css('background', 'black').css('color', 'white');
+		$('#hh1').css({'background':'crimson', 'color':'green'}) // 위 문장을 축약
+	})
+</script>
+
+<style>
+	pre {
+		font-size: 1.5em;
+		background: skyblue;
+		border-top: 3px solid blue;
+		border-bottom: 3px solid blue;
+		padding-top: 20px;
+		padding-bottom: 20px;
+	}
+	#hh1 {
+		color: red;	
+	}
+</style>
+
+</head>
+<body>
+<pre>
+	jQuery를 실행하기 위해서 라이브러리 필요
+	&lt;script src = "../js/jquery-3.4.1.min.js"&gt;&lt;/script&gt;을 추가
+	
+	$(document).ready(function(){})
+	$(function(){})
+</pre>
+	<h1 id="hh1"> 무궁화 꽃이 피었습니다. </h1>
+	<h1> 장미꽃이 피었습니다. </h1>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/mystyle.css">
+<style>
+	table {
+		border-collapse: collapse;
+		border-color: white;
+	}
+	td {
+		width: 200px;
+		text-align: center;
+	}
+</style>
+<script src="../js/jquery-3.4.1.min.js"></script>
+<script>
+	$(function() {
+		$('#btn1').on('click', function() {
+			$('li:lt(4)').css('font-weight', 'bold');
+			
+			$('li:first, li:last').css('background', 'yellow');
+			
+			$('li:eq(5)').css('background', 'red');
+			
+		})
+		
+		$('#btn2').on('click', function() {
+			$('tr:even', $(this).parent()).css('background', 'silver');
+			$('tr:odd', $(this).parent()).css('background', 'pink');
+		})
+		
+		$('#btn3').on('click', function() {
+			$('tr:even', $(this).parent()).css('background', 'gray');
+			$('tr:odd', $(this).parent()).css('background', 'white');
+			$('tr:first', $(this).parent()).css({'background':'black', 'color':'white'});
+		})
+	})
+	
+</script>
+</head>
+<body>
+	<div class="box">
+		<h3>기본필터</h3>
+		<p> :first, :last, :even, :odd, :eq(idx), :gt(idx), :lt(idx) </p>
+		<div>
+			<ul>
+				<li> one </li>
+				<li> two </li>
+				<li> three </li>
+				<li> four </li>
+				<li> five </li>
+				<li> six </li>
+				<li> seven </li>
+				<li> eight </li>
+				<li> nine </li>
+			</ul>
+		</div>
+		<button id="btn1" type="button">실행</button>
+	</div>
+	
+	<div class="box">
+		<h3>기본필터</h3>
+		<p> :even, :odd</p>
+		<div>
+			<table border="1">
+				<tr>
+					<td>one</td>
+					<td>62만원</td>
+				</tr>
+				<tr>
+					<td>two</td>
+					<td>45만원</td>
+				</tr>
+				<tr>
+					<td>three</td>
+					<td>33만원</td>
+				</tr>
+				<tr>
+					<td>four</td>
+					<td>72만원</td>
+				</tr>
+				<tr>
+					<td>five</td>
+					<td>77만원</td>
+				</tr>
+				<tr>
+					<td>six</td>
+					<td>54만원</td>
+				</tr>
+				<tr>
+					<td>seven</td>
+					<td>61만원</td>
+				</tr>
+				<tr>
+					<td>eight</td>
+					<td>52만원</td>
+				</tr>
+				<tr>
+					<td>nine</td>
+					<td>88만원</td>
+				</tr>
+			</table>
+		</div>
+		<button id="btn2" type="button">실행</button>
+	</div>
+	
+	<div class="box">
+		<h3>기본필터</h3>
+		<p> :even, :odd, :first</p>
+		<div>
+			<table border="1">
+				<tr>
+					<td>이름</td>
+					<td>주소</td>
+				</tr>
+				<tr>
+					<td>홍길동</td>
+					<td>대전</td>
+				</tr>
+				<tr>
+					<td>진달래</td>
+					<td>서울</td>
+				</tr>
+				<tr>
+					<td>개나리</td>
+					<td>부산</td>
+				</tr>
+				<tr>
+					<td>무궁화</td>
+					<td>대구</td>
+				</tr>
+			</table>
+		</div>
+		<button id="btn3" type="button">실행</button>
+	</div>
+</body>
+</html>

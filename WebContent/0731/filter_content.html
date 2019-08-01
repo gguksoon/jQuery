@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/mystyle.css">
+<script src="../js/jquery-3.4.1.min.js"></script>
+<style>
+	div.d {
+		width: 400px;
+		height: 30px;
+		border: 1px solid green;
+		font-size: 15px;
+	}
+</style>
+<script>
+	$(function() {
+		// .click(function(){})은 .on(click, function(){})과 같다.
+		$('#btn1').click(function() {
+			// jQuery가 포함된 span태그 의 테두리 파랑: contains(text)  2px 
+			$('span:contains(jQuery)').css('border', '2px solid blue');
+			
+			// jQuery가 포함되지 않은  span 태그 의 테두리 빨강: not(:conains(text)) 1px 
+			$('span:not(:contains(jQuery))').css('border', '2px solid red');
+			
+			// span을 갖는 div요소 태그 의 테두리 그린: has(span) 5px 
+			$('div:has(span)').css('border', '5px solid green');
+			
+			// 아무것도 없는 빈 div 태그 의 테두리 :empty -orange
+			$('div:empty').css('border', '2px solid orange');
+			
+			// div 후손 span 태그 의 글자색  빨강, 크기
+			$('div.d span').css({'color':'red', 'font-size':'30px'});
+			
+			// 비어있는 div에 HELLO!를 출력
+			//$('div:empty').html('<h1>HELLO!</h1>');
+			$('div:empty').text('<h1>HELLO!</h1>');
+		})
+		
+	})
+</script>
+</head>
+<body>
+	<div class="box">
+		<div class="d"></div>
+		<div class="d">헬로우~~<span>오늘도  즐겁게~열심히!</span></div>
+		<p>Hello jQuery! <span>Thanks, jQuery!</span></p>
+		<div class="myClass d">jQuery!</div>
+		<span class="notMyClass d">쉬운 jQuery~~!</span>
+		<div class="d"></div>
+		<br><br><hr color="blue"><br>
+		<button id="btn1" type="button">실행</button>
+	</div>
+</body>
+</html>

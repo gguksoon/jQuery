@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/mystyle.css">
+<script src="../js/jquery-3.4.1.min.js"></script>
+<script>
+	$(function() {
+		$('button').on('click', function() {
+			jq = $('h1');
+			jq.css('color', 'blue');
+			
+	// ---------------------------------------------------------------------------------
+			// 전체 h1중에서 2번째(0부터 시작)만 선택(script방식)
+			dom = jq.get(2); // dom객체를 리턴, jq[2]와 같음
+			
+			// 위 dom변수는 dom객체가 되어서 dom.css와 같은 jQuery함수를 사용할 수 없다.
+			dom.style.color = 'red';
+			
+			// dom을 $()로 감싸주면 jquery객체변수가 되어서 jQuery함수를 사용할 수 있다.
+			$(dom).css('color', 'cyan');
+	// ---------------------------------------------------------------------------------
+			// 전체 h1중에서 4번째(0부터 시작)만 선택(jQuery방식)
+			//jq4 = $(jq.eq(4)); // jQuery객체를 리턴
+			jq4 = $('h1:eq(4)'); // 위와 같음
+			
+			jq4.css('color', 'red');
+			
+		})
+	})
+</script>
+
+</head>
+<body>
+	<div class="box">
+		<h2>dom객체와 jQuery객체 변환</h2>
+		   jQuery를 dom으로 변환: jQuery(객체).get(N) / jQuery객체[N]<br>
+		   dom객체를 jQuery객체로 변환: $(dom객체)<br>
+		   <br>
+		   jq =   $('h1');<br>
+		   jq.css('color', 'blue');<br>
+		   <br><br>
+		   - jQuery객체를 dom객체로 변환<br> 
+		   dom = jq.get(2);  //jq[2]<br>
+		   dom.style.color = 'red';<br>
+		   <br>
+		   - dom객체를 jQuery객체로 변환<br>
+		   $(dom).css('color', 'green');<br>
+		   <br>
+		   - 전체 h1중 4번째 선택: jQuery<br>
+		   jq4 = $('h1:eq(4)'); <br>
+		   jq4.css('color', 'red');<br>
+
+		<h1>무궁화 꽃이 피었습니다1</h1>
+		<h1>무궁화 꽃이 피었습니다2</h1>
+		<h1>무궁화 꽃이 피었습니다3</h1>
+		<h1>무궁화 꽃이 피었습니다4</h1>
+		<h1>무궁화 꽃이 피었습니다5</h1>
+		<button type="button">실행</button>
+	</div>
+</body>
+</html>

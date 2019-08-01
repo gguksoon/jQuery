@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.4.1.min.js"></script>
+<link rel="stylesheet" href="../css/mystyle.css">
+
+<script>
+	$(function(){
+		$('input[type=button]').click(function() {
+			res = "";
+			
+			// 반복문 i는 index, a=checkbox:checked[i]
+			$(':checkbox:checked').each(function(i, a) {
+				//res += $(this).val() + " ";
+				res += $(a).val() + " ";
+			})
+			
+			//document.getElementById('result1').innerHTML = res;
+			$('#result1').html(res);
+
+		})
+		
+		// id가 spring인 것(select)가 변경되었을 때 실행
+		$('#spring').change(function() {
+			res = "";
+			// :select를 이용.. select가 많으면 아래 처럼 name이나 id등으로 선택한다.
+			//$('select[name=spring] option:selected')
+			//$('#spring option:selected')
+			
+			// 반복문
+			$('#spring option:selected').each(function() {
+				res += $(this).val() + "<br>";
+			})
+			
+			$('#result2').html(res);
+		})
+	})
+</script>
+</head>
+<body>
+	<div class="box">
+		<h3>:checked</h3>
+		<p> - $('input[type=checkbox]:checked')</p>
+		<p> - $(':checkbox:checked')</p>
+		<p> - 선택한 요소를 대상으로 반복문을 실행</p>
+		<p> - 반복문 안에서 현재 실행대상이 되는 객체를 this로 받는다</p>
+
+		<div>
+			<form>
+				취 미 : 
+				<input type="checkbox" name="hobby" value="여행" checked>여행
+				<input type="checkbox" name="hobby" value="장기">장기 
+				<input type="checkbox" name="hobby" value="바둑">바둑
+				<input type="checkbox" name="hobby" value="독서">독서
+				<input type="checkbox" name="hobby" value="낚시">낚시
+				<br><br>
+				<input type="button" value="전송">
+			</form>
+		</div>
+
+		<div id="result1"></div>
+	</div>
+	
+	<div class="box">
+		<h3>:selected</h3>
+		<p> - select/option에서 선택한 요소를 선택한다.</p>
+		<p> - select에서 change이벤트를 수행</p>
+		<p> - 선택한 요소를 대상으로 반복문을 실행</p>
+		<p> - 반복문 안에서 현재 실행대상이 되는 객체를 this로 받는다</p>
+
+		<div>
+			<form>
+				봄소식 : 
+				<select name="spring" id="spring" multiple size="3">
+					<option>개나리</option>
+					<option selected>진달래</option>
+					<option>민들레</option>
+					<option selected>벚꽃</option>
+					<option>목련</option>
+					<option>철쭉</option>
+				</select>
+			</form>
+		</div>
+
+		<div id="result2"></div>
+	</div>
+</body>
+</html>

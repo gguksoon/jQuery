@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/mystyle.css">
+<script src="../js/jquery-3.4.1.min.js"></script>
+<script>
+	$(function() {
+		$('#but1').on('click', function() {
+			// 새로운 HTML생성
+			vptag = $('<p>무궁화 꽃이 피었습니다</p>');
+			$('#result1').append(vptag);
+			
+			// $('#result1').css('font-size', '1.5em').css('font-weight', 'bold').css('color', 'red');
+			$('#result1').css({'font-size':'1.5em', 
+							   'font-weight':'bold',
+							   'color':'red'});
+		})
+		
+		$('#but2').on('click', function() {
+			// img태그를 생성
+			//imgtag = $('<img src="../images" width="150px" height="100px" onclick="proc1()">')
+			imgarr = ["../images/가구1.jpg", "../images/가구2.jpg", "../images/가구3.jpg",
+				      "../images/단풍.jpg", "../images/대나무숲.jpg", "../images/산.png",
+				      "../images/셔틀콕.jpg", "../images/식품1.jpg", "../images/식품2.jpg"]
+			
+			// 난수 생성
+			rand = Math.floor(Math.random() * imgarr.length);
+			
+			imgtag = $('<img>', {'src': imgarr[rand],
+								 'width': '150px',
+								 'height': '100px',
+								 'title': function() { // 마우스 올렸을 때 나오는 말풍선
+									 // src 속성값을 가져옴
+									 //getsrc = this.getAttribute('src');
+								     getsrc = $(this).attr('src')
+								 	 start = getsrc.lastIndexOf("/");
+								 	 end = getsrc.lastIndexOf(".");
+								 	 
+								 	 return getsrc.substring(start + 1, end);
+								 }, 
+								 'click': function() {
+								 	$(this).css('border', '2px solid blue');			 
+								 }
+			           });
+			//$('#result2').append(imgtag); // result2에 imgtag를 넣기
+			$(imgtag).appendTo('#result2'); // imgtag를 result2에 넣기.. 같은말
+		})
+		
+		$('#but3').on('click', function() {
+			//vdiv = $('div', { });
+			//$('#result3').append(vdiv);
+			$('<div></div>', {
+				'text': '클릭하세요',
+				'click': function() {
+					$(this).css('border', '5px solid green');
+				}
+			}).appendTo('#result3');
+		})
+		
+	})
+</script>
+</head>
+<body>
+	<div class="box">
+		<h2>$('html')</h2>
+		- 새로운 html요소를 생성<br>
+		- div result1안에 추가<br>
+		<br><br>
+		<button id="but1" type="button">실행</button>
+		<div id="result1"></div>
+	</div>
+	
+	<div class="box">
+		<h2>$('html', {properties})</h2>
+		- 새로운 img요소를 생성<br>
+		- properties(속성): src, width, height, 클릭 함수<br>
+		- div result2안에 추가<br>
+		<br><br>
+		<button id="but2" type="button">실행</button>
+		<div id="result2"></div>
+	</div>
+	
+	<div class="box">
+		<h2>$('html', {properties})</h2>
+		- 새로운 div요소를 생성<br>
+		- properties(속성): width, height, 클릭 함수<br>
+		- div result3안에 추가<br>
+		<br><br>
+		<button id="but3" type="button">실행</button>
+		<div id="result3"></div>
+	</div>
+</body>
+</html>
