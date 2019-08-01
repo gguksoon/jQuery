@@ -7,11 +7,39 @@
 <script src="../js/jquery-3.4.1.min.js"></script>
 <script>
 	$(function() {
-
+		$('#btn1').click(function() {
+			// class가 intro인 p를 선택
+			//$('p.intro') --> 이렇게 작성하면 내부적으로 아래 내용으로 변경됨(효율이 떨어짐)
+			$('p').filter('.intro').css('background', 'pink');
+			
+			// class가 pp인 요소 중 jQuery를 포함하는 class를 선택
+			//$('pp:contains(jQuery)') --> 이렇게 작성하면 내부적으로 아래 내용으로 변경됨(효율이 떨어짐)
+			$('.pp').filter(':contains(jQuery)').css('border', '2px solid red');
+			
+			// 홀수번째 p요소 중 HTML을 포함하는 p를 선택
+			//$('p:odd:contains(HTML)') --> 이렇게 작성하면 내부적으로 아래 내용으로 변경됨(효율이 떨어짐)
+			$('p').filter(':odd').filter(':contains(HTML)').css('border', '2px dotted green');
+			
+			// 첫번째 p요소를 선택
+			//$('p:first')
+			//$('p').first()
+			$('p').filter(':first').css('font-size', '1.8em');
+			
+			
+		})
 	})
 </script>
 </head>
 <body>
-
+	<div class="box">
+		<div>
+			<p class="pp"> 내 이름은 jQuery입니다.</p>
+			<p class="intro"> 나는 자바스크립트와 살고 있습니다.</p>
+			<p class="intro"> 나는 자바스크립트를 사랑합니다.</p>
+			<p class="pp"> 내 친구는 HTML, Ajax입니다.</p>
+		</div>
+		<br>
+		<button id="btn1" type="button">실행</button>
+	</div>
 </body>
 </html>
