@@ -33,3 +33,12 @@
 	padding: 10px;
 	height: auto;	
 }
+
+pre {
+	background: #fefdeb;
+	border-top: 3px solid #f4dd7d;
+	border-bottom: 3px solid #f4dd7d;
+	margin: 20px 0px;
+	padding: 10px;
+	font-size: 1.5em;
+}

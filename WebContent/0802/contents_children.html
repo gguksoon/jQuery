@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/mystyle.css">
+<script src="../js/jquery-3.4.1.min.js"></script>
+<script>
+	$(function() {
+		$('#contents').click(function(){
+			var str = "Contents <br>";
+			$('#d1').contents().each(function(i){
+				//  str+= i + "번째  태그이름  " + this.tagName  + " 내용 : " + $(this).html() + "<br>"
+		    	//태그이름이 undefined일 경우 typeof로 비교 
+		 		if( typeof  this.tagName  == 'undefined'){
+		    		//태그 없는 자식요소중 공백요소 는 걸러낸다
+		    	    if($(this).text().trim().length > 0)
+		    	    	str +=  i + "번째 문자열 " +   $(this).text() + "<br>";
+		        } else {
+		    	   str +=   i + "번째  태그이름  " + this.tagName + ", 내용 : " + $(this).html() + "<br>"
+		        }
+			 })
+			 $('#result1').html(str);
+		})
+
+		
+		$('#children').click(function() {
+			var str = "Children <br>"
+			$('#d1').children().each(function(i){
+		    	   str +=   i + "번째  태그이름  " + this.tagName + ", 내용 : " + $(this).html() + "<br>"
+			})
+			$('#result2').html(str);
+		})
+	})
+</script>
+</head>
+<body>
+<pre>
+	contents: 자식요소들의 내용을 선택한다. 태그가 없어도 선택한다.
+	children: 태그가 있는 자식요소들을 선택한다.
+</pre>
+	<div class="box">
+		<div id="d1">DIV입니다
+			<p>P태그입니다.</p>
+			<span>SPAN입니다.
+				<span>SPAN2입니다.</span>
+			</span>
+		</div>
+		<br>
+		<button id="contents" type="button">contents</button>
+		<button id="children" type="button">children</button>
+		<br>
+		<div id="result1"></div>
+		<div id="result2"></div>
+	</div>
+</body>
+</html>

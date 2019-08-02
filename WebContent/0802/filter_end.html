@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/mystyle.css">
+<script src="../js/jquery-3.4.1.min.js"></script>
+<style>
+.di, .di2{
+	width: 50px;
+	height: 60px;
+	margin: 10px;
+	display: inline-block;
+	border: 2px solid blue;
+	text-align: center;
+}
+
+.blue {
+	background: blue;
+}
+
+.lightblue {
+	background: lightblue;
+}
+
+.orange {
+	background: orange;
+}
+</style>
+<script>
+	$(function() {
+		$('#btn1').click(function() {
+			
+			//$('div:odd')
+			
+			$('div').filter(':odd').eq(0).css('background', 'blue')
+								   .end().eq(1).css('background', 'green')
+			                       .end().eq(2).css('background', 'pink');
+		})
+		
+		$('#btn2').click(function() {
+			//$('.di2:eq(1)')
+			$('.di2').eq(1).css('border', '2px solid green')
+			               .siblings().css('border', '2px solid pink')
+			               .end().next().text('3rd')
+			               .end().nextAll().css('background', 'yellow')
+			               .end().prev().css('background', 'green');
+		})
+	})
+</script>
+</head>
+<body>
+<pre>
+	<strong>end()</strong>
+	- 실행을 한단계 앞으로 되돌려 기존 선택을 기준으로 새로운 필터링을 한다.
+	- 홀수번째 요소를 선택해서 배경색을 변경
+</pre>
+	<div class="box">
+		<h3>end()</h3>
+		- 실행을 한단계 앞으로 되돌려 기존 선택을 기준으로 새로운 필터링을 한다.<br><br>
+		<div class="di">A</div> 
+		<div class="di">B</div> 
+		<div class="di">C</div> 
+		<div class="di">D</div> 
+		<div class="di">E</div> 
+		<div class="di orange">F</div> 
+		<div class="di">G</div>
+		<br><br>
+		<button id="btn1" type="button">실행</button>
+	</div>
+	
+	
+<pre>
+	<strong>end()</strong>
+	- 첫번째 div를 기준으로 새로운 필더링을 수행한다   <br>
+	$("div").eq(1).css()
+	앞뒤 형제 모두 파란색 테두리 - siblings()
+	다시 되올아와서 (eq(1)) - -
+	바로 다음 형제 (next())의 text변경—세번째third 
+	다시 되돌아와서  -- 
+	뒤 모든 형제(nextAll())들 배경색 변경-노란색 
+	다시 되돌아와서 – 
+	 앞 형제(prev()) 배경색 변경 - 그린 
+</pre>
+	<div class="box">
+		<div>
+			<div class="di2">A</div> 
+			<div class="di2">B</div> 
+			<div class="di2">C</div> 
+			<div class="di2">D</div> 
+			<div class="di2">E</div> 
+			<div class="di2 orange">F</div> 
+			<div class="di2">G</div>
+		</div>
+		<br>
+		<button id="btn2" type="button">실행</button>
+	</div>
+    
+
+</body>
+</html>

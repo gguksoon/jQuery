@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.siblings * {
+	display: block;
+	border: 2px solid lightgrey;
+	color: lightgrey;
+	padding: 5px;
+	margin: 15px;
+}
+
+.ancestors, .ancestors * {
+	display: block;
+	border: 2px solid lightgrey;
+	color: lightgrey;
+	padding: 5px;
+	margin: 15px;
+}
+
+.siblings * { 
+  display: block;
+  border: 2px solid lightgrey;
+  color: lightgrey;
+  padding: 5px;
+  margin: 15px;
+}
+
+button {
+	color: white;
+	font-weight: bold;
+	background: #94d2ed;
+	padding: 5px 20px;
+	border-radius: 50px;
+	width: 150px;
+	height: 40px;
+	font-size: 15px;
+	margin: 5px 10px;
+}
+
+button:hover {
+	background: #70c2e7;
+	cursor: pointer;
+}
+</style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function() {
+		$('#next').click(function() {
+			$('#d1 li.start').next().css({
+				'color' : 'red',
+				'border' : '2px solid red'
+			});
+		})
+
+		$('#nextAll').click(function() {
+			$('#d1 li.start').nextAll().css({
+				'color' : 'blue',
+				'border' : '2px solid blue'
+			});
+		})
+
+		$('#nextUntil').click(function() {
+			$('#d1 li.start').nextUntil('#d1 li.bottom').css({
+				'color' : 'green',
+				'border' : '2px solid green'
+			});
+		})
+		
+		$('#prev').click(function() {
+			$('#d1 li.start').prev().css({
+				'color' : 'pink',
+				'border' : '2px solid pink'
+			});
+		})
+
+		$('#prevAll').click(function() {
+			$('#d1 li.start').prevAll().css({
+				'color' : 'yellow',
+				'border' : '2px solid yellow'
+			});
+		})
+
+		$('#prevUntil').click(function() {
+			$('#d1 li.start').prevUntil('#d1 li.top').css({
+				'color' : 'violet',
+				'border' : '2px solid violet'
+			});
+		})
+		
+		
+		$('#add').click(function() {
+			//$('.start, .end')
+			$('.start').add('.top').add('.bottom').css({
+				'color' : 'magenta',
+				'border' : '2px solid magenta'
+			})
+		})
+
+		$('#clear').click(function() {
+			$('#d1 li').css({
+				'border' : '2px solid lightgrey',
+				'color' : 'lightgrey'
+			});
+		})
+
+		$('#parent').click(function() {
+			$("#sp").parent().css({
+				"color" : "red",
+				"border" : "2px solid red"
+			});
+		})
+
+		$('#parents').click(function() {
+			$("#sp").parents().css({
+				"color" : "red",
+				"border" : "2px solid blue"
+			});
+		})
+
+		$('#siblings').click(function() {
+			$("h2").siblings().css({
+				"color" : "red",
+				"border" : "2px solid red"
+			});
+		})
+
+		$('#siblings_param').click(function() {
+			$("h2").siblings("p").css({
+				"color" : "blue",
+				"border" : "2px solid blue"
+			});
+		})
+
+		$('#find').click(function() {
+			$('#d4').find('span').css({
+				'color' : 'blue',
+				'border' : '3px solid blue'
+			})
+		})
+
+		$('#contents').click(function() {
+			$('#d4').contents().css({
+				'color' : 'red',
+				'border' : '3px solid red'
+			})
+		})
+
+		$('#children').click(function() {
+			$('#d4').children().css({
+				'color' : 'green',
+				'border' : '3px solid green'
+			})
+		})
+
+	});
+</script>
+</head>
+<body>
+
+	<div id="d1" style="width: 500px;" class="siblings">
+		<ul>
+			<li>li </li>
+			<li class="top">li (class name "top") </li>
+			<li>li </li>
+			<li>li </li>
+			<li class="start">li (class name "start")</li>
+			<li>li </li>
+			<li>li </li>
+			<li class="bottom">li (class name "bottom")</li>
+			<li>li </li>
+		</ul>
+	</div>
+	<button type="button" id="next">next</button>
+	<button type="button" id="nextAll">nextAll</button>
+	<button type="button" id="nextUntil">nextUntil</button>
+	<br>
+	<button type="button" id="prev">prev</button>
+	<button type="button" id="prevAll">prevAll</button>
+	<button type="button" id="prevUntil">prevUntil</button>
+	<br>
+	<button type="button" id="add">add</button>
+	<br>
+	<button type="button" id="clear">clear</button>
+	<br>
+	<br>
+	<hr>
+	<br>
+
+	<div id="d2" style="width: 500px;" class="ancestors">
+		div (great-grandparent)
+		<ul>
+			<li>li (direct parent) <span id="sp">span</span>
+			</li>
+		</ul>
+	</div>
+	<button type="button" id="parent">parent</button>
+	<button type="button" id="parents">parents</button>
+	<button type="button" id="parents_param">parents_param</button>
+	<button type="button" id="parentsUntil">parentsUntil</button>
+	<br>
+	<br>
+	<hr>
+	<br>
+	
+	<div id="d3" style="width: 500px;" class="siblings">
+		<div>
+			div (parent)
+			<p>p</p>
+			<span>span</span>
+			<h2>h2</h2>
+			<h3>h3</h3>
+			<p>p</p>
+		</div>
+	</div>
+	<button type="button" id="siblings">siblings</button>
+	<button type="button" id="siblings_param">siblings_param</button>
+	<br>
+	<br>
+	<hr>
+	<br>
+	
+	<div id="d4" style="width: 500px;" class="siblings">
+		div (great-grandparent)
+		<ul>
+			<li>li (direct parent) <span>span</span>
+			</li>
+		</ul>
+	</div>
+	<button type="button" id="find">find</button>
+	<button type="button" id="children">children</button>
+	<button type="button" id="contents">contents</button>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
