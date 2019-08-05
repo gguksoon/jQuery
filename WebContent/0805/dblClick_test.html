@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/mystyle.css">
+<script src="../js/jquery-3.4.1.min.js"></script>
+<style>
+	img {
+		width: 100px;
+		height: 100px;
+	}
+	
+	button {
+		display: none;
+	}
+</style>
+<script>
+	$(function() {
+		//$('img').on('dblclick', function() {})
+		//$('img').bind('dblclick', function() {})
+		$('img').dblclick(function() {
+			$(this).hide();
+			
+			// 보여지는 img가 없으면 버튼이 보이게 하기
+			if($('img:visible').length == 0) {
+				$('button').show();
+			}
+		})
+		
+		$('button').click(function() {
+			$(this).hide();
+			$('img').show();
+		})
+		
+		$('img').hover(
+			function() { // 마우스가 올라갔을 때
+				// src2의 속성값을 가져온다.
+				var temp = $(this).attr('src2');
+			
+				// src의 속성값으로 설정한다.
+				$(this).attr('src2', $(this).attr('src'));
+				$(this).attr('src', temp);
+			},
+			function() { // 마우스가 나갔을 때
+				// src2의 속성값을 가져온다.
+				var temp = $(this).attr('src2');
+			
+				// src의 속성값으로 설정한다.
+				$(this).attr('src2', $(this).attr('src'));
+				$(this).attr('src', temp);
+			}
+		)
+	})
+</script>
+</head>
+<body>
+	<!-- src2는 원래 없는 속성임, 저장하기 위한 변수같은 공간?.. -->
+	<img src="../images/10001.jpg" src2="../images/10002.gif">
+	<img src="../images/가구1.jpg" src2="../images/가구2.jpg">
+	<img src="../images/단풍.jpg" src2="../images/셔틀콕.jpg">
+	<img src="../images/대나무숲.jpg" src2="../images/풍차.jpg">
+	<img src="../images/산.png" src2="../images/아메리카노.jpg">
+	<br>
+	<button type="button">보이기</button>
+</body>
+</html>

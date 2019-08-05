@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/mystyle.css">
+<script src="../js/jquery-3.4.1.min.js"></script>
+<style>
+	div {
+		width:300px;
+		height:200px;
+		background-color:skyblue;
+	}
+</style>
+<script>
+	$(function() {
+		$('div').mousedown(function(event) {
+			res = "target: " + event.target.tagName + "\n"; 
+			res += "pageXY: " + event.pageX + ", " + event.pageY + "\n";
+			res += "screenXY: " + event.screenX + ", " + event.screenY + "\n";
+			res += "button: " + event.button;
+			
+			// 왼쪽: 배경색 변경
+			// 스크롤: Hello 출력
+			// 오른쪽: 테두리 설정
+			if(event.button == 0) {
+				$(this).css('background', 'red');
+			} else if(event.button == 1) {
+				$(this).html("<h1>HELLO</h1>");
+			} else {
+				$(this).css('border', '5px dotted black');
+			}
+			alert(res); 
+		})
+		
+		$('button').click(function(event) {
+			console.log( "target: " + event.target.tagName );
+		})
+	})
+</script>
+</head>
+<body>
+	<div></div>
+	<br>
+	<button> 버튼 </button>
+</body>
+</html>

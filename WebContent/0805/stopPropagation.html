@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/mystyle.css">
+<script src="../js/jquery-3.4.1.min.js"></script>
+<style>
+	div {
+		background: pink;
+		width: 300px;
+		height: 150px;
+		padding: 50px;
+	}
+	div > span {
+		background: yellow;
+		margin: 30px;
+		padding: 50px;
+	}
+</style>
+<script>
+	$(function() {
+		// 클릭 시 메소드는 아래 3가지 방법이 있음.
+		//$('span').click(function() {});
+		//$('span').on('click', function() {});
+		$('#sp1').bind('click', function() {
+			$(this).css('background', 'red');
+			
+			// stopPropagation()이 없으면 span을 클릭했을 때 상위 요소인 h1의 click이벤트도 실행된다.
+			event.stopPropagation();
+		});
+		
+		$('h1').bind('click', function() {
+			$(this).css('background', 'green');
+		})
+		
+		$('button').bind('click', function() {
+			var colorCode = "#" + Math.round(Math.random() * 0xffffff).toString(16);
+			$(this).css('background', colorCode);
+			alert(this.tagName);
+			event.stopPropagation();
+		})
+		
+		$('#sp2').bind('click', function() {
+			var colorCode = "#" + Math.round(Math.random() * 0xffffff).toString(16);
+			$(this).css('background', colorCode);
+			alert(this.tagName);
+			event.stopPropagation();
+		})
+		
+		$('div').bind('click', function() {
+			var colorCode = "#" + Math.round(Math.random() * 0xffffff).toString(16);
+			$(this).css('background', colorCode);
+			alert(this.tagName);
+			event.stopPropagation();
+		})
+	})
+</script>
+</head>
+<body>
+<pre>
+	event.stopPropagation: 이벤트의 버블링(확산 퍼짐)을 막는다.
+	자식요소인 span태그에 이벤트가 발생하면 부모요소인 h1태그의 이벤트가 동시에 발생한다.
+	부모의 이벤트가 발생되어 확산되지 않도록 막아준다.
+</pre>
+	<h1>큰제목안에 <span id="sp1"> 작은 영역</span>이 있다</h1>
+	<br>
+	<hr>
+	<br>
+	<body>
+	<div> <span id="sp2"> <button>클릭하세요</button> </span> </div>
+	<br>
+	<hr color="red">
+	<br>
+	<a href="http://www.daum.net">Daum사이트 가기</a>
+</body>  
+</body>
+</html>

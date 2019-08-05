@@ -12,7 +12,7 @@
 			$('#d1').contents().each(function(i){
 				//  str+= i + "번째  태그이름  " + this.tagName  + " 내용 : " + $(this).html() + "<br>"
 		    	//태그이름이 undefined일 경우 typeof로 비교 
-		 		if( typeof  this.tagName  == 'undefined'){
+		 		if( typeof this.tagName  == 'undefined'){
 		    		//태그 없는 자식요소중 공백요소 는 걸러낸다
 		    	    if($(this).text().trim().length > 0)
 		    	    	str +=  i + "번째 문자열 " +   $(this).text() + "<br>";

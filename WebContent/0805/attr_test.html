@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/mystyle.css">
+<script src="../js/jquery-3.4.1.min.js"></script>
+<style>
+	img {
+		width: 100px;
+		height: 100px;
+	}
+</style>
+<script>
+	$(function() {
+		$('img').each(function() {
+			$('img').attr('title', function() {
+				// src값을 가져온다.
+				vsrc = $(this).attr('src');
+				start = vsrc.lastIndexOf("/");
+				end = vsrc.lastIndexOf(".");
+				
+				return vsrc.slice(start + 1, end);
+			});
+		})
+	})
+</script>
+</head>
+<body>
+	<img src="../images/americano.jpg">
+	<img src="../images/cafelatte.jpg">
+	<img src="../images/cappuccino.jpg">
+	<img src="../images/coffee1.jpg">
+	<img src="../images/pizza.jpg">
+</body>
+</html>

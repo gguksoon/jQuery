@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/mystyle.css">
+<script src="../js/jquery-3.4.1.min.js"></script>
+<script>
+	$(function() {
+		$('textarea').keyup(function() {
+			var len = $(this).val().length;
+			$('p > span').html(100 - len);
+			if(len >= 100) {
+				$(this).val($(this).val().slice(0, 100));
+				$('p > span').html(0);
+			}
+		})
+	})
+</script>
+</head>
+<body>
+<pre>
+	100글자가 넘어가면 자동으로 100글자까지 짤린다.
+</pre>
+	<h2>하고 싶은 말을 남겨주세요. (100글자 이내)</h2>
+	<br>
+	<textarea rows="10" cols="50"></textarea>
+	<p>남은글자: <span>100</span></p>
+</body>
+</html>

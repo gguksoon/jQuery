@@ -387,6 +387,116 @@
 
 
 
+======================================[0805]======================================
+
+ㅁ css 관련 메소드
+   - .css(name): 매치되는 첫번째 요소의 스타일 속성을 반환한다.
+	ex) var color = $(this).css("color");
+   - .css(name, value): 매치된 모든 요소에 대해 단일 스타일 속성을 설정한다.
+	ex) $(this).css('color', 'yellow');
+   - .css(properties): 매치된 모든 요소들의 스타일 속성에 키/값을 설정한다.
+	ex) $(this).css({'color':'yellow', 'font-weight':'bolder'});
+   - .addClass(class): 매치된 요소들의 각 집합에 지정된 css 클래스를 추가한다.
+   - .hasClass(class): 지정된 클래스가 매치된 요소 집합 중 최소 한 군데 이상 적용되어
+                      있다면 true를 반환한다.
+   - .removeClass(class): 매치된 요소들의 각 집합에서 지정된 css 클래스 혹은 모든
+                         클래스를 제거한다.
+   - .toggleClass(class): 지정된 클래스가 적용되지 않았다면 적용하고, 이미 적용되어
+                          있다면 제거한다.
+
+ㅁ 속성(attribute) 관련 메소드
+   - .attr(name): 매치된 첫 번째 요소의 특정 어트리뷰트에 접근하여 값을 가져온다.
+                  만일, 지정된 어트리뷰트 명이 존재하지 않는다면 undefined가 반환된다.
+   - .attr(properties): 모든 매치되는 요소들의 어트리뷰트를 키/값 개체로 설정한다.
+   - .attr(key, value): 모든 매치되는 요소들의 단일 속성의 값을 지정한다.
+   - .attr(key, fn): 모든 매치되는 요소들의 단일 속성에 대해 계산된 값을 지정한다.
+   - .removeAttr(name): 매치된 요소 각각으로부터 해당 속성을 제거한다.
+
+ㅁ 이벤트
+   - 마우스 이벤트: click, mousedown
+   - 키보드 이벤트: keyup, keydown, keypress
+   - 포커스 이벤트: focus, blur
+
+ㅁ 이벤트 객체와 속성: 모든 이벤트의 정보를 event객체로 제공. Click처럼 추가 정보가
+                       필요없는 이벤트는 이 인수를 받지 않아도 됨
+   - target: 이벤트가 발생한 객체
+	ex) "target: " + event.target.tagName"; 
+   - pageX, pageY: 문서의 좌상단을 기준으로 한 마우스의 좌표
+	ex) "pageXY: " + event.pageX + ", " + event.pageY;
+   - screenX, screenY: 화면상의 좌표
+	ex) "screenXY: " + event.screenX + ", " + event.screenY;
+   - keyCode: 눌러진 키의 코드
+   - charCode: 눌러진 키의 문자 코드
+   - button: 눌러진 마우스 버튼
+	ex) "button: " + event.button;
+   - 0: Left mouse button(mousedown)에서 실행
+     1: Wheel button or middle button(if present)
+     2: Right mouse button
+	==> click에서는 0만 되고, mousedown에서는 모두 다 됨.
+
+ㅁ 이벤트 관련 메소드
+   - bind(type, date, fn): 매치된 요소에 이벤트 처리기를 바인딩한다.
+                           type에는 이벤트 명칭,
+                           data에는 부가적으로 전달할 데이터 개체(JSON),
+                           fn에는 이벤트 처리기 함수를 작성
+   - unbind(type, fn): 매치된 요소에서 지정된 이벤트와 매핑된 모든 처리기들을
+                       제거한다. bind()와는 상반되는 메서드이다.
+   - one(type, date, fn): 사용 방법은 bind()함수와 동일하지만 한번만 실행되고
+                          자동으로 이벤트 처리기를 삭제한다.
+   - trigger(type, date): 매치된 요소에 대하여 전달된 이벤트 타입에 해당하는 이벤트
+                          처리기를 모두 실행한다.
+   - toggle(): 매치된 요소에서 클릭 이벤트가 발생할 때 마다 처리될 처리기를
+                       지정한다.(show, hide가 번갈아가며 수행된다.)
+   - hover(fn1, fn2): 매치된 요소에서 fn1(mouseover), fn2(mouseout) 이벤트가
+                      발생할 때 처리될 처리기를 지정한다.
+   - event.stopPropagation(): DOM 트리의 이벤트 버블링(확산 퍼짐)을 막음.
+                              (event: 이벤트객체변수)
+   - event.preventDefault(): 이벤트의 기본 동작을 막음. 이벤트 버블링과 기본 동작을
+                             동시에 막고 싶다면 리스너 함수에 false 반환
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
