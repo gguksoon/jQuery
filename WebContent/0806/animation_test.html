@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/mystyle.css">
+<script src="../js/jquery-3.4.1.min.js"></script>
+<style>
+	img {
+		width: 100px;
+		height: 100px;
+		position: relative; /* absolute도 가능, animation을 하기 위해 설정 */
+	}
+</style>
+<script>
+	$(function() {
+		$('#left').click(function() {
+			$('img').animate({'left': '+=50px', 'width': '+=20px', 'height': '+=20px'}, 100);
+		})
+		
+		$('#right').click(function() {
+			$('img').animate({'left': '-=50px'}, 100)
+			        .delay(1000)
+			        .animate({'width': '-=20px', 'height': '-=20px'}, 500);
+		})
+		
+		$('#opc').click(function() {
+			setInterval(function(){
+				$('img').animate({left: '+=100px'}, 500)
+			    .animate({opacity: '-=0.8'}, 500)
+			    .delay(500)
+			    .animate({left: '-=100px'}, 500)
+			    .animate({opacity: '+=0.8'}, 500)
+			}, 500)
+		})
+	})
+</script>
+</head>
+<body>
+<pre>
+	<strong>animation</strong>
+	- animate()메소드 이용
+	- css속성과 millisecond단위의 지속시간이 매개변수로 온다.
+	- 'left': '100px' ==> 왼쪽좌표를 100px로 변경(오른쪽으로 이동하는 효과)
+</pre>
+	<button type="button" id="right">왼쪽</button>
+	<button type="button" id="left">오른쪽</button>
+	<button type="button" id="opc">이동+투명</button>
+	<br><br>
+	<img src="../images/image.5.jpg">
+</body>
+</html>

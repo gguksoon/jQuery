@@ -8,20 +8,52 @@
 <script>
 	$(function() {
 		$('.btn').bind('click', function() {
-			// 새로운 버튼을 만든다.
+			// 새로운 버튼 생성
 			newbtn = $('<button/>', {
 				'type': 'button',
 				'class': 'btn',
-				'text': '새로운 버튼' 
+				'text': $(this).text() 
 			})
 			
 			$(newbtn).appendTo($('.dv2'));
+		})
+		
+		//$(document).on('click', '.btn2', function() {})
+		$(document).delegate('.btn2', 'click', function() {
+			newbtn = $('<button/>', {
+				'type': 'button',
+				'class': 'btn2',
+				'text': $(this).text() 
+			})
+			
+			$(newbtn).appendTo($('.dv22'));
+		})
+		
+		$('#cle').on('click', function() {
+			//$('.btn').off('click');
+			$('.btn').unbind('click');
+		})
+		
+		$('#cle2').on('click', function() {
+			//$(document).off('click');
+			$(document).undelegate('click');
 		})
 	})
 </script>
 </head>
 <body>
 	<div class="box">
+		<h2>bind방식의 이벤트 핸들러</h2>
+		- 실행하기 전에 미리 만들어져 있는 요소에만 이벤트 핸들러가 호출되어 실행된다. <br>
+		- 실행 시 동적으로 새롭게 만들어지는 요소에는 핸들러가 적용되지 않는다. <br>
+		- 버튼1, 2, 3에서는 이벤트가 실행되지만 새로운 버튼에는 이벤트가 실행되지 않는다. <br>
+		(ex) <br>
+		 $('.btn').on('click', function() {}) <br>
+         $('.btn').click(function() {}) <br>
+         $('.btn').bind('click', function() {}) <br>
+         <br>
+		 $('.btn').off('click'); <br>
+		 $('.btn').unbind('click'); <br>
 		<div class="dv">
 			<button class="btn" type="button">버튼1</button>
 			<button class="btn" type="button">버튼2</button>
@@ -31,6 +63,30 @@
 		<button id="cle" type="button">해제</button>
 		<hr>
 		<div class="dv2"></div>
+	</div>
+	
+	<div class="box">
+		<h2>delegate방식의 이벤트 핸들러</h2>
+		- 실행하기 전에 미리 만들어져 있거나, <br>
+		- 실행 시 동적으로 새롭게 만들어지는 요소에도 같은 이벤트 핸들러가 적용된다. <br>
+		- 버튼1, 2, 3에서는 이벤트가 실행되고 새로운 버튼에는 이벤트가 실행된다. <br>
+		- document대신에 실행버튼의 부모요소 'dv22'가 올 수 있다. <br>
+		(ex) <br>
+		 $(document).on('click', '.btn', function() {}) <br>
+         $(document).delegate('.btn', 'click', function() {}) <br>
+         <br>
+         $(document).off('click'); <br>
+	     $(document).undelegate('click'); <br>
+         
+		<div class="dv">
+			<button class="btn2" type="button">버튼1</button>
+			<button class="btn2" type="button">버튼2</button>
+			<button class="btn2" type="button">버튼3</button>
+		</div>
+		<br>
+		<button id="cle2" type="button">해제</button>
+		<hr>
+		<div class="dv22"></div>
 	</div>
 </body>
 </html>

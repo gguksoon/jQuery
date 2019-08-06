@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/mystyle.css">
+<script src="../js/jquery-3.4.1.min.js"></script>
+<style>
+	img {
+		width: 400px;
+		height: 400px;
+	}
+</style>
+<script>
+	$(function() {
+		$('a').click(function() {
+			event.preventDefault();
+			$('img').fadeOut(500, function() {});
+			$('img').attr('src', $(this).attr('href'));
+			$('img').fadeIn(500);
+		})
+	})
+</script>
+</head>
+<body>
+	<h2>교재리스트</h2>
+	<ul>
+		<li> <a href="../images/jQuery.jpg">jQuery교재</a> </li>
+		<li> <a href="../images/JSP.jpg">JSP교재</a> </li>
+		<li> <a href="../images/UML.jpg">UML교재</a> </li>
+		<li> <a href="../images/JAVA.jpg">JAVA교재</a> </li>
+	</ul>
+	<hr>
+	<img src="../images/noImage.png">
+</body>
+</html>

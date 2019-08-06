@@ -396,6 +396,7 @@
 	ex) $(this).css('color', 'yellow');
    - .css(properties): 매치된 모든 요소들의 스타일 속성에 키/값을 설정한다.
 	ex) $(this).css({'color':'yellow', 'font-weight':'bolder'});
+
    - .addClass(class): 매치된 요소들의 각 집합에 지정된 css 클래스를 추가한다.
    - .hasClass(class): 지정된 클래스가 매치된 요소 집합 중 최소 한 군데 이상 적용되어
                       있다면 true를 반환한다.
@@ -458,16 +459,56 @@
 
 
 
+======================================[0806]======================================
 
+ㅁ delegate
+   - bind()메소드는 선택자로 검색한 모든 엘리먼트에 핸들러를 등록한다 
+   - $(‘h1’)의 검색 결과가 몇개이는가에 상관없이 문서내의 모든 <h1>엘리먼트에
+     똑같은 핸들러가 등록 된다 
+   - 그러나 새로 추가되는 엘리먼트에는 핸들러가 지정되지 않아 이벤트가 발생해도
+     핸들러가 호출되지 않는다 .
+   - 미래에 추가될 엘리먼트에 대해서도 핸들러를 미리 등록하는 메서드가 필요
+	> $(document).delegate(선택자, 이벤트명, 핸들러 );
+   - 특정 엘리먼트에 대해 핸들러를 지금 당장 등록하는 것이 아니라 
+     문서가 변경될때마다 핸들러가 등록되어야 하므로 document수준에서 메소드를
+     호출한다 (document 는 이벤트  대상객체의 부모가 올 수 있다)
+   - 이처럼 실행중에 자동으로 등록되는 살아았는 핸들러를 라이브 핸들러 라고 한다 . 
+   - 1.7 버전 에서는 모든  이벤트 등록 메소드를 통합하는 메소드가 새로 도입
+	> on(이벤트명, [선택자], 핸들러)  off( 이벤트명, [선택자], 핸들러)
+   - 선택자가 있으면 delegate와 같고 없으면 bind와 같다
 
+   * 새롭게 생성되는 요소에 이벤트를 등록하고 싶으면 delegate를 이용한다.
+     또한, document대신 해당 선택자의 부모가 올 수 있다.
+	ex) <이벤트 등록>
+	    $(document).on('click', '.btn', function() {}) ==> 'click'과 'btn'의 
+	    $(document).delegate('.btn', 'click', function() {})        위치에 조심
+	    <이벤트 제거>
+	    $(document).off('click');
+	    $(document).undelegate('click');
+   * bind는 실행하기 전에 미리 만들어져 있는 요소에만 이벤트 핸들러가 호출되어
+     실행하며, 실행 시 동적으로 새롭게 만들어지는 요소에는 핸들러가 적용되지 않는다.
+     (델리게이트를 제외한 것들)
+	ex) <이벤트 등록>
+	    $('.btn').on('click', function() {})
+            $('.btn').click(function() {})
+            $('.btn').bind('click', function() {})
+	    <이벤트 제거>
+	    $('.btn').off('click');
+	    $('.btn').unbind('click');
+     --> on에 선택자가 있으면 델리게이트 아니면 bind
+   * 동적으로 생성한 경우 델리게이트를 이용하자.
 
-
-
-
-
-
-
-
+ㅁ jQuery Effects
+   - .show()
+   - .hide()
+   - .toggle()
+   - .slideUp()
+   - .slideDown()
+   - .slideToggle()
+   - .fadeIn()
+   - .fadeOut()
+   - .fadeToggle()
+   - .fadeTo()
 
 
 
