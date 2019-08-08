@@ -510,6 +510,90 @@
    - .fadeToggle()
    - .fadeTo()
 
+ㅁ 애니메이션
+   - $('선택자').animate({properties}, millisec);
+   - position: relative; /* absolute도 가능, animation을 하기 위해 설정 */
+   - 메서드 체이닝 가능
+   - 숫자 설정 모두 사용 가능
+	ex) width, height, left, right, opacity 등...
+
+
+
+
+
+======================================[0807]======================================
+
+복습하자..
+any_queue ==> datatype ==> jsonsubmit
+
+
+
+
+
+======================================[0808]======================================
+
+ㅁ Ajax get / post에 한글 사용
+   - get : server에 있는 server.xml파일에 있는 65번째 줄에 URIEncoding="UTF-8"
+   - post: jsp파일에 request.setCharacterEncoding("UTF-8")
+
+ㅁ DB와 연동(ibatis 연동)
+   - 라이브러리파일을 WEB-INF -> lib에 넣기(ibatis-2.3.4.726.jar, ojdbc6.jar)
+   - 소스폴더 만들기(res) ->
+	안에 패키지 만들기 kr.or.ddit.ibatis.config
+			   kr.or.ddit.ibatis.mapper
+   - src 폴더안에 패키지 만들기
+			  -> kr.or.ddit.member.vo
+   - kr.or.ddit.ibatis.config안에 sqlMapConfig.properties와 sqlMapConfig.xml 넣기
+   - kr.or.ddit.ibatis.config안에 SqlMapClientFactory생성
+   - kr.or.ddit.ibatis.mapper안에 member.xml 넣기
+   - dao    : 자신의 싱글톤 생성, Mapper에 접근하기 위한 SqlMapClient객체 생성
+   - service: 자신의 싱글톤 생성, dao의 싱글톤 불러오기
+
+ㅁ mvc: model view controller
+   singleton: 하나의 객체를 공유해서 사용
+
+ㅁ 페이지 이동방법
+   - redirect : 요청 두번, 클라이언트로(서버 외부)로 이동했다가(request와 response가 소멸)
+		다시 서버 내부의 페이지 재요청(데이터 공유 X)
+   - forward  : 요청 한번, 서버 내부에서 페이지 변경(request와 response를 공유 ==> 데이터 공유 O)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
