@@ -17,10 +17,6 @@ import kr.or.ddit.member.vo.MemberVO;
 public class MemberSelect extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public MemberSelect() {
-        super();
-    }
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 클라이언트 요청시 전송되는 데이터를 받아온다. 
 		// DB를 이용하는 CRUD처리를 한다. 

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/mystyle.css">
+<link href="https://fonts.googleapis.com/css?family=Jua&display=swap" rel="stylesheet">
+<script src="../js/jquery-3.4.1.min.js"></script>
+
+<style>
+	* {
+		font-family: 'Jua', sans-serif;
+		font-size: 18px;
+	}
+	
+	table {
+		border-collapse: collapse;
+	}
+	
+	td, th {
+		height: 50px;
+	}
+	
+	th {
+		font-size: 30px;
+		background-color: silver;
+	}
+
+	.buyerName {
+		font-size: 25px;
+		width: 150px;
+		text-align: center;
+	}
+	
+	.buyerName:hover {
+		background-color: black;
+		color: white;
+		cursor: pointer;
+	}
+	
+	#infoTable {
+		width: 600px;
+		border: none;
+	}
+	
+	.infoTableKey {
+		width: 150px;
+		padding-left: 10px;
+	}
+	
+	.infoTableValue {
+		padding-left: 10px;
+	}
+	
+</style>
+<script>
+	$(function() {
+		xhr = new XMLHttpRequest();
+		
+		$.ajax({
+			url: '/jqpro/BuyerSelect',	
+			dataType: 'json',
+			success: function(datas) {
+				code = "<table id='buyerTable' border='1'>";
+				code += "<tr>";
+				code += "<th>거래처 이름</th>";
+				code += "<th>거래처 상세정보</th>";
+				code += "</tr>";
+				$.each(datas, function(i) {
+					code += "<tr>";
+					code += "<td class='buyerName'>";
+					code += datas[i].buyer_name;
+					code += "</td>";
+					code += "";
+					if(i == 0) {
+						code += "<td rowspan='" + (datas.length)+ "'>";
+						code += "<table border='1' id='infoTable'></table>"
+						code += "</td>"
+					}
+					code += "</tr>";
+				})
+				$('body').html(code);
+				
+				$('.buyerName').on('click', function() {
+					var selName = $(this).text(); 
+					$.each(datas, function(i){
+						if(datas[i].buyer_name == selName) { 
+							$('#infoTable').html("");
+							$.each(datas[i], function(i, j) { // 속성회전
+								var res = "<tr><td class='infoTableKey'>" + i + "</td>";
+								res += "<td class='infoTableValue'>" + j + "</td>" + "</tr>"; 
+								$('#infoTable').append(res);
+							})
+						}
+					}) 
+					
+				})
+			},
+			error: function(xhr) {
+				alert('상태: ' + xhr.status);
+			}
+		})
+		
+	})
+</script>
+</head>
+<body>
+</body>
+</html>

@@ -555,15 +555,27 @@ any_queue ==> datatype ==> jsonsubmit
 ㅁ 페이지 이동방법
    - redirect : 요청 두번, 클라이언트로(서버 외부)로 이동했다가(request와 response가 소멸)
 		다시 서버 내부의 페이지 재요청(데이터 공유 X)
-   - forward  : 요청 한번, 서버 내부에서 페이지 변경(request와 response를 공유 ==> 데이터 공유 O)
+   - forward  : 요청 한번, 서버 내부에서 페이지 변경
+		(request와 response를 공유 ==> 데이터 공유 O)
 
 
 
 
 
+======================================[0809]======================================
 
-
-
+ㅁ AJAX 데이터 요청
+$.ajax({
+	url: 'text.jsp',
+	type: 'get',
+	success: function(datas){
+	
+	},
+	error: function() {
+		
+	},
+	dataType: 'text'
+})
 
 
 

@@ -5,15 +5,17 @@
 	"http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
 
 <sqlMapConfig>
-	 <properties resource="sqlMapConfig.properties"/>
-	 <!-- <properties resource="kr/or/ddit/ibatis/sqlMapConfig.properties"/> -->
+	 <!-- <properties resource="sqlMapConfig.properties"/> -->
+	 <properties resource="kr/or/ddit/ibatis/config/sqlMapConfig.properties"/>
 	 
 	 <settings cacheModelsEnabled="true" enhancementEnabled="true"
 	 		lazyLoadingEnabled="true" maxRequests="32" 
 	 		maxSessions="10" maxTransactions="5"
 	 		useStatementNamespaces="true"/>
 	 		
-	<typeAlias alias="memVO" type="kr.or.ddit.member.vo.MemberVO"/>
+	<typeAlias alias="memVO"   type="kr.or.ddit.member.vo.MemberVO"/>
+	<typeAlias alias="lprodVO" type="kr.or.ddit.lprod.vo.LprodVO"/>
+	<typeAlias alias="buyerVO" type="kr.or.ddit.buyer.vo.BuyerVO"/>
 	
 	<transactionManager type="JDBC">
 		<dataSource type="SIMPLE">
@@ -25,6 +27,8 @@
 	</transactionManager>
 	 
 	<sqlMap resource="kr/or/ddit/ibatis/mapper/member.xml"/>
+	<sqlMap resource="kr/or/ddit/ibatis/mapper/lprod.xml"/>
+	<sqlMap resource="kr/or/ddit/ibatis/mapper/buyer.xml"/>
 </sqlMapConfig>
 
 

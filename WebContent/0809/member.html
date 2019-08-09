@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/mystyle.css">
+<script src="../js/jquery-3.4.1.min.js"></script>
+<script>
+	$(function() {
+		$('#btn1').on('click', function() {
+			xhr = new XMLHttpRequest();
+			
+			// 요청
+			xhr.open("GET", '/jqpro/MemberSelect', true);
+			xhr.send();
+			
+			// 응답
+			xhr.onreadystatechange = function() {
+				if(this.readyState == 4 && this.status == 200) {
+					datas = JSON.parse(this.responseText);
+					code = "<table border='1'>";
+					code += "<tr><th>이름</th><th>아이디</th><th>이메일</th><th>주소</th>";
+					code += "<th>전화번호</th><th>생일</th></tr>"
+					$.each(datas, function(i) {
+						code += "<tr>";
+						code += "<td>" + datas[i].name + "</td>";
+						code += "<td>" + datas[i].id + "</td>";
+						code += "<td>" + datas[i].addr + "</td>";
+						code += "<td>" + datas[i].hp + "</td>";
+						code += "<td>" + datas[i].birthday + "</td>";
+						code += "<td>" + datas[i].mail + "</td>";
+						code += "</tr>"
+					})
+					code += "</table>";
+					$('#result1').html(code);
+				}
+				
+			}
+		})
+	})
+</script>
+</head>
+<body>
+	<div class="box">
+		<button id="btn1" type="button">memberList</button>
+		<br>
+		<div id="result1"></div>
+	</div>
+</body>
+</html>

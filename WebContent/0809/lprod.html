@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link href="https://fonts.googleapis.com/css?family=Jua&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/button.css">
+
+<style>
+	* {
+		font-family: 'Jua', sans-serif;
+	}
+
+	div#di {
+		width: 250px;
+		border: 1px solid black;
+	}
+	
+	hr {
+		border: 1px dashed silver;
+		width: 230px;
+	}
+	
+	button {
+		font-size: 20px;
+	}
+</style>
+<script src="../js/jquery-3.4.1.min.js"></script>
+<script>
+	$(function() {
+		$('#btn1').on('click', function() {
+			xhr = new XMLHttpRequest();
+			
+			xhr.open("GET", '/jqpro/LprodSelect', true);
+			xhr.send();
+			
+			var code = "<div id='di'>";
+			xhr.onreadystatechange = function() {
+				if(this.readyState == 4 && this.status == 200) {
+					datas = JSON.parse(this.responseText);
+					
+					$.each(datas, function(i) {
+						if(i != 0) code += "<hr>"
+						code += "<ul>";
+						code += "<li>Lprod_ID: " + datas[i].id + "</li>";
+						code += "<li>Lprod_GU: " + datas[i].gu + "</li>";
+						code += "<li>Lprod_NM: " + datas[i].nm + "</li>";
+						code += "</ul>";
+					})
+				}
+				code += "<div>";
+				$('#result1').html(code);
+			}
+		})
+	})
+</script>
+</head>
+<body>
+	<div class="box">
+		<button id="btn1" class="btn1" type="button">lprodList</button>
+		<br><br>
+		<div id="result1"></div>
+	</div>
+</body>
+</html>
