@@ -61,6 +61,7 @@
 			url: '/jqpro/BuyerSelect',	
 			dataType: 'json',
 			success: function(datas) {
+				// 상단, 좌측 생성 =================================================
 				code = "<table id='buyerTable' border='1'>";
 				code += "<tr>";
 				code += "<th>거래처 이름</th>";
@@ -80,6 +81,7 @@
 					code += "</tr>";
 				})
 				$('body').html(code);
+				// ============================================================
 				
 				$('.buyerName').on('click', function() {
 					var selName = $(this).text(); 

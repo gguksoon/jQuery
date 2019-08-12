@@ -577,17 +577,22 @@ $.ajax({
 	dataType: 'text'
 })
 
+ㅁ DB BUYER 출력
 
 
 
 
 
+======================================[0812]======================================
 
+ㅁ LPROD와 PROD로 SelectList 만들기 ==> lprod_prod.html
 
+<option value="id값"> 모니터 </option> text값=모니터
 
-
-
-
+ㅁ JSON 단축메뉴
+   - $.get(url, data, success, dataType)
+   - $.post(url, data, success, dataType)
+   - $.getJSON(url, data, success)
 
 
 

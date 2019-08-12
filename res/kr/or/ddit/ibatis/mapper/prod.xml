@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org/DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="prod">
+
+	<!-- prod 전체 반환 -->
+	<select id="selectAll" resultClass="prodVO">
+		select *
+		  from prod
+	</select>
+	
+	<!-- lgu에 해당하는 prod 반환 -->
+	<select id="selectLgu" parameterClass="string" resultClass="prodVO">
+		select *
+		  from prod
+		 where prod_lgu = #pord_lgu#
+	</select>
+	
+	<!-- id에 해당하는 prod 반환 -->
+	<select id="selectProd" parameterClass="string" resultClass="prodVO">
+		select *
+		  from prod
+		 where prod_id = #prod_id#	
+	</select>
+</sqlMap>

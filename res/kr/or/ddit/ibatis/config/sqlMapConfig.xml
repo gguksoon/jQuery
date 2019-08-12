@@ -16,6 +16,7 @@
 	<typeAlias alias="memVO"   type="kr.or.ddit.member.vo.MemberVO"/>
 	<typeAlias alias="lprodVO" type="kr.or.ddit.lprod.vo.LprodVO"/>
 	<typeAlias alias="buyerVO" type="kr.or.ddit.buyer.vo.BuyerVO"/>
+	<typeAlias alias="prodVO"  type="kr.or.ddit.prod.vo.ProdVO"/>
 	
 	<transactionManager type="JDBC">
 		<dataSource type="SIMPLE">
@@ -29,6 +30,7 @@
 	<sqlMap resource="kr/or/ddit/ibatis/mapper/member.xml"/>
 	<sqlMap resource="kr/or/ddit/ibatis/mapper/lprod.xml"/>
 	<sqlMap resource="kr/or/ddit/ibatis/mapper/buyer.xml"/>
+	<sqlMap resource="kr/or/ddit/ibatis/mapper/prod.xml"/>
 </sqlMapConfig>
 
 

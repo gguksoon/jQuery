@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/mystyle.css">
+<script src="../js/jquery-3.4.1.min.js"></script>
+<style>
+	table {
+		border-collapse: collapse;
+	}
+	td {
+		width: 200px;
+	}
+	
+	 {
+	table:first-child > td { 
+		text-align: center;
+	}
+</style>
+<script>
+	$(function() {
+		$('button').on('click', function() {
+			// $.ajax에서는 순서가 바뀌어도 상관없지만, 
+			// 단축메뉴에서는 순서가 바뀌면 안된다.
+			
+			// 단축메뉴 $.getJSON(url, data, success) ==> 아래는 data가 없어서 생략
+			$.getJSON(
+				'/jqpro/LprodSelect',
+				function(res) {
+					code = "";
+					$.each(res, function(i) {
+						code += "<option value='" + res[i].gu + "'>";
+						code += res[i].nm;
+						code += "</option>";
+					})
+					$('#lprod').html(code);
+				}
+			)
+		})
+		
+		$('#lprod').on('change', function() {
+			
+			// option의 value값 가져오기
+			lprod_gu = $(this).val();
+			
+			// 서버로 전송
+			// $.get(url, data, success, dataType);
+			$.get(
+				'/jqpro/ProdServlet', 
+				{'lprod_gu' : lprod_gu},
+				function(res) {
+					code = "";
+					$.each(res, function(i) {
+						code += "<option value='" + res[i].prod_id + "'>";
+						code += res[i].prod_name;
+						code += "</option>";
+					})
+					$('#prod').html(code);
+				},
+				'json'
+			)
+		})
+		
+		$('#prod').on('change', function() {
+			
+			prod_id = $(this).val();
+			$.post(
+				'/jqpro/ProdServlet',
+				{'prod_id' : prod_id},
+				function(res) {
+					code = "<table border='1'>";
+					code += "<tr><td>항목</td><td>내용</td></tr>";
+					$.each(res, function(i, j) {
+						console.log("i: " + i + ", j: " + j);
+						code += "<tr><td>" + i + "</td><td>" + j + "</td></tr>";
+					})
+					code += "</table>";
+					$('#prodInfo').html(code);
+				},
+				'json'
+			)
+		})
+	})
+</script>
+</head>
+<body>
+	<button type = "button">실행</button>
+	<table id="tab" border="1">
+		<tr>
+			<td>
+				<select id="lprod" name="lprod"></select>
+			</td>
+			<td>
+				<select id="prod"  name="prod"></select>
+			</td>			
+		</tr>
+		<tr>
+			<th>항목</th>
+			<th>내용</th>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<div id="prodInfo"></div>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>
