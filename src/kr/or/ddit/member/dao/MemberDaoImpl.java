@@ -7,6 +7,7 @@ import com.ibatis.sqlmap.client.SqlMapClient;
 
 import kr.or.ddit.ibatis.config.SqlMapClientFactory;
 import kr.or.ddit.member.vo.MemberVO;
+import kr.or.ddit.member.vo.ZipVO;
 
 public class MemberDaoImpl implements IMemberDao {
 
@@ -33,6 +34,47 @@ public class MemberDaoImpl implements IMemberDao {
 		}
 		
 		return memberList;
+	}
+
+	@Override
+	public int checkId(String mem_id) {
+		int count = 0;
+		
+		try {
+			MemberVO memberVo = (MemberVO)client.queryForObject("member.checkId", mem_id);
+			if(memberVo != null) count = 1;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		
+		return count;
+	}
+
+	@Override
+	public List<ZipVO> searchZip(String dong) {
+		List<ZipVO> zipList = null;
+		
+		try {
+			zipList = (List<ZipVO>) client.queryForList("member.searchZip", dong);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return zipList;
+	}
+
+	@Override
+	public int insertMember(MemberVO memberVo) {
+		int cnt = 0;
+		
+		try {
+			Object obj = client.insert("member.insertMember", memberVo);
+			if(obj == null) cnt = 1;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		
+		return cnt;
 	}
 
 }

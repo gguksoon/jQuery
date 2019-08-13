@@ -3,41 +3,79 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../css/mystyle.css">
-<script src="../js/jquery-3.4.1.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Jua&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <style>
-	table {
-		border-collapse: collapse;
-	}
-	td {
-		width: 200px;
+	* {
+		font-family: 'Jua', sans-serif;
+		font-size: 18px;
 	}
 	
-	 {
-	table:first-child > td { 
+	h1 {
+		text-align: center;
+		font-size: 30px;
+	}
+	
+	img {
+		width: 350px;
+		height: 350px;
+	}
+	
+	select {
+		margin-bottom: 20px;
+	}
+	
+	td, th {
 		text-align: center;
 	}
+	
+	th {
+		font-size: 25px;
+	}
+	
+	
+/* 	table {
+		border-collapse: collapse;
+	}
+	
+	.row1 {
+		width: 100px;
+		padding-left: 10px; 
+	}
+	
+	.row2 {
+		width: 400px;
+		padding-left: 10px;
+	}
+	
+	tr:first-child { 
+		text-align: center;
+		background-color: gray;
+	}
+	
+	.prodHead {
+		border: none;
+	} */
 </style>
 <script>
 	$(function() {
-		$('button').on('click', function() {
-			// $.ajax에서는 순서가 바뀌어도 상관없지만, 
-			// 단축메뉴에서는 순서가 바뀌면 안된다.
-			
-			// 단축메뉴 $.getJSON(url, data, success) ==> 아래는 data가 없어서 생략
-			$.getJSON(
-				'/jqpro/LprodSelect',
-				function(res) {
-					code = "";
-					$.each(res, function(i) {
-						code += "<option value='" + res[i].gu + "'>";
-						code += res[i].nm;
-						code += "</option>";
-					})
-					$('#lprod').html(code);
-				}
-			)
-		})
+
+		$.getJSON(
+			'/jqpro/LprodSelect',
+			function(res) {
+				code = "";
+				$.each(res, function(i) {
+					code += "<option value='" + res[i].gu + "'>";
+					code += res[i].nm;
+					code += "</option>";
+				})
+				$('#lprod').html(code);
+				$('#lprod').trigger('change');
+			}
+		)
 		
 		$('#lprod').on('change', function() {
 			
@@ -51,12 +89,20 @@
 				{'lprod_gu' : lprod_gu},
 				function(res) {
 					code = "";
-					$.each(res, function(i) {
-						code += "<option value='" + res[i].prod_id + "'>";
-						code += res[i].prod_name;
-						code += "</option>";
-					})
-					$('#prod').html(code);
+					if(res.flag == 'false') { // 데이터가 없을 때
+						code += "<option value='empty'>데이터 없음</option>";
+						$('#prod').html(code);
+						noImg = "<img src='../images/noImage.png'>"
+						$('#prodInfo').html(noImg);
+					} else { // 데이터가 있을 때
+						$.each(res, function(i) {
+							code += "<option value='" + res[i].prod_id + "'>";
+							code += res[i].prod_name;
+							code += "</option>";
+							$('#prod').html(code);
+							$('#prod').trigger('change');
+						})
+					}
 				},
 				'json'
 			)
@@ -69,11 +115,10 @@
 				'/jqpro/ProdServlet',
 				{'prod_id' : prod_id},
 				function(res) {
-					code = "<table border='1'>";
-					code += "<tr><td>항목</td><td>내용</td></tr>";
+					code = "<table border='1' class='table table-striped'>";
+					code += "<tr><th class='row1'>항목</th><th class='row2'>내용</th></tr>";
 					$.each(res, function(i, j) {
-						console.log("i: " + i + ", j: " + j);
-						code += "<tr><td>" + i + "</td><td>" + j + "</td></tr>";
+						code += "<tr><td class='row1'>" + i + "</td><td class='row2'>" + j + "</td></tr>";
 					})
 					code += "</table>";
 					$('#prodInfo').html(code);
@@ -85,25 +130,18 @@
 </script>
 </head>
 <body>
-	<button type = "button">실행</button>
-	<table id="tab" border="1">
-		<tr>
-			<td>
-				<select id="lprod" name="lprod"></select>
-			</td>
-			<td>
-				<select id="prod"  name="prod"></select>
-			</td>			
-		</tr>
-		<tr>
-			<th>항목</th>
-			<th>내용</th>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<div id="prodInfo"></div>
-			</td>
-		</tr>
-	</table>
+	<div class="container">
+		<h2>제품리스트</h2>
+		<form>
+			<div class="form-group">
+				<label for="lprod">제품 목록 리스트:</label>
+				<select	class="form-control" id="lprod" name="lprod"></select>
+				<label for="prod">상품 리스트:</label>
+				<select	class="form-control" id="prod" name="prod"></select>
+			</div>
+		</form>
+		<div id="prodInfo"></div>
+	</div>
+
 </body>
 </html>

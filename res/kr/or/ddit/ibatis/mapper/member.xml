@@ -6,24 +6,33 @@
 <!-- 이 문서에서는 직접 처리할 SQL문을 등록해서 처리될 수 있도록 설정하는 문서이다. -->
 <!-- namespace속성 ==> 아래에서 작성한 SQL문을 호출할 때 같이 사용된다. -->
 <sqlMap namespace="member">
-	<!-- 
-	 	1) id속성: 해당 태그의 SQL문을 Java의 Dao에서 호출할 때 사용되는 이름으로
-	 			  <sqlMap> 태그의 namespace와 같이 사용한다.	
-		2) parameterClass속성: SQL문에 사용될데이터가 들어있는 객체를 지정한다.
-				(보통 VO클래스, 자바의 자료형이름 등이 사용된다.)
-		3) resultClass속성: 처리할 SQL문이 select문일 경우에 사용되는 속성으로
-				select문의 처리 결과를 저장할 객체를 지정한다.
-				(이 속성에 지정하는 객체는 1개의 레코드가 저장될 크기의 객체를 지정하면 된다.)
-				(보통 VO클래스, 자바의 자료형이름 등이 사용된다.)
-
-		- 위의 parameterClass와 resultClass에 지정할 객체는 typeAlias에 지정한
-		  'alias명'을 사용해도 된다.
-	-->
 	
 	<!-- member 전체 반환 -->
 	<select id="selectAll" resultClass="memVO">
 		select *
 		  from member
 	</select>
+	
+	<!-- 아이디 중복검사 -->
+	<select id="checkId" parameterClass="String" resultClass="int">
+		select count(*)
+		  from member
+		 where mem_id = #mem_id#
+	</select>
+	
+	<!-- 우편번호 검색 -->
+	<select id="searchZip" parameterClass="String" resultClass="ZipVO">
+		select *
+		  from ziptb
+		 where dong like #dong#||'%'
+	</select>
+	
+	<!-- 회원가입 -->
+	<insert id="insertMember" parameterClass="memVO">
+		insert into member(mem_id, mem_pass, mem_name, mem_bir, mem_zip,
+							mem_add1, mem_add2, mem_hp, mem_mail)
+			   values(#mem_id#, #mem_pass#, #mem_name#, #mem_bir#, #mem_zip#,
+						#mem_add1#, #mem_add2#, #mem_hp#, #mem_mail)
+	</insert>
 	
 </sqlMap>

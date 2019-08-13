@@ -14,6 +14,7 @@
 	 		useStatementNamespaces="true"/>
 	 		
 	<typeAlias alias="memVO"   type="kr.or.ddit.member.vo.MemberVO"/>
+	<typeAlias alias="zipVO"   type="kr.or.ddit.member.vo.ZipVO"/>
 	<typeAlias alias="lprodVO" type="kr.or.ddit.lprod.vo.LprodVO"/>
 	<typeAlias alias="buyerVO" type="kr.or.ddit.buyer.vo.BuyerVO"/>
 	<typeAlias alias="prodVO"  type="kr.or.ddit.prod.vo.ProdVO"/>

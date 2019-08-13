@@ -5,6 +5,7 @@ import java.util.List;
 import kr.or.ddit.member.dao.IMemberDao;
 import kr.or.ddit.member.dao.MemberDaoImpl;
 import kr.or.ddit.member.vo.MemberVO;
+import kr.or.ddit.member.vo.ZipVO;
 
 public class MemberServiceImpl implements IMemberService {
 
@@ -23,6 +24,21 @@ public class MemberServiceImpl implements IMemberService {
 	@Override
 	public List<MemberVO> selectAll(){
 		return dao.selectAll();
+	}
+
+	@Override
+	public int checkId(String mem_id) {
+		return dao.checkId(mem_id);
+	}
+
+	@Override
+	public List<ZipVO> searchZip(String dong) {
+		return dao.searchZip(dong);
+	}
+
+	@Override
+	public int insertMember(MemberVO memberVo) {
+		return dao.insertMember(memberVo);
 	}
 
 }
