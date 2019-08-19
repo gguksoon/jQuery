@@ -16,9 +16,9 @@ public interface IMemberDao {
 	/**
 	 * 아이디 중복검사
 	 * @param user_id
-	 * @return 존재하면 1, 없으면 0
+	 * @return 존재하면 member객체, 없으면 null
 	 */
-	public int checkId(String mem_id);
+	public MemberVO checkId(String mem_id);
 	
 	/**
 	 * 우편번호 검색

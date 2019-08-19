@@ -37,17 +37,16 @@ public class MemberDaoImpl implements IMemberDao {
 	}
 
 	@Override
-	public int checkId(String mem_id) {
-		int count = 0;
+	public MemberVO checkId(String mem_id) {
+		MemberVO memberVo = null;
 		
 		try {
-			MemberVO memberVo = (MemberVO)client.queryForObject("member.checkId", mem_id);
-			if(memberVo != null) count = 1;
+			memberVo = (MemberVO)client.queryForObject("member.checkId", mem_id);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} 
 		
-		return count;
+		return memberVo;
 	}
 
 	@Override

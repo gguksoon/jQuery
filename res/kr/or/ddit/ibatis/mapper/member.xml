@@ -21,7 +21,7 @@
 	</select>
 	
 	<!-- 우편번호 검색 -->
-	<select id="searchZip" parameterClass="String" resultClass="ZipVO">
+	<select id="searchZip" parameterClass="String" resultClass="zipVO">
 		select *
 		  from ziptb
 		 where dong like #dong#||'%'
@@ -32,7 +32,7 @@
 		insert into member(mem_id, mem_pass, mem_name, mem_bir, mem_zip,
 							mem_add1, mem_add2, mem_hp, mem_mail)
 			   values(#mem_id#, #mem_pass#, #mem_name#, #mem_bir#, #mem_zip#,
-						#mem_add1#, #mem_add2#, #mem_hp#, #mem_mail)
+						#mem_add1#, #mem_add2#, #mem_hp#, #mem_mail#)
 	</insert>
-	
+
 </sqlMap>

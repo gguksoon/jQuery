@@ -27,7 +27,7 @@ public class MemberServiceImpl implements IMemberService {
 	}
 
 	@Override
-	public int checkId(String mem_id) {
+	public MemberVO checkId(String mem_id) {
 		return dao.checkId(mem_id);
 	}
 

@@ -23,7 +23,6 @@ public class SqlMapClientFactory {
 			Resources.setCharset(charset);
 			
 			// xml문서 읽어오기
-//			Reader rd = Resources.getResourceAsReader("sqlMapConfig.xml");
 			Reader rd = Resources.getResourceAsReader("kr/or/ddit/ibatis/config/sqlMapConfig.xml");
 			
 			// 위에서 읽어온 Reader객체를 이용하여 실제 작업을 수행할 SqlMapClient객체를 생성한다.
