@@ -29,7 +29,8 @@ public class MemberIdCheck extends HttpServlet {
 		
 		// 메소드 호출 - 결과값: null이거나 기존의 id값
 		MemberVO memVo = service.checkId(inputId);
-		String resId = memVo.getMem_id(); 
+		String resId = null;
+		if(memVo != null) resId = memVo.getMem_id(); 
 		
 		// jsp로 보내서 json데이터 생성
 		request.setAttribute("inputId", inputId);

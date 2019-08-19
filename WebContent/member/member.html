@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.4.1.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<style>
+	tr:nth-child(odd) {
+		background: #FAFAFA;
+	}
+	.zipTr:hover {
+		background: #F8ECE0;
+		cursor: pointer;
+	}
+</style>
+<script>
+	$(function() {
+		// 아이디 중복검사
+		$("#btnId").on('click', function() {
+			// 입력한 id값을 가져온다.
+			var memId = $('#id').val();
+			
+			$.ajax({
+				url: '/jqpro/MemberIdCheck',
+				type: 'get',
+				data: {"id": memId},
+				dataType: 'json',
+				success: function(datas) {
+					$('#idchk').html(datas.res).css('color', 'red');
+				},
+				error: function(xhr) {
+					alert("상태: " + xhr.status);
+				}
+			})
+		})
+		
+		// 동 검색
+		$("#searchDong").on('click', function() {
+			// 입력한 동을 가져온다.
+			var dong = $('#dong').val();
+			$.ajax({
+				url: '/jqpro/DongSelect',
+				type: 'post',
+				data: "dong=" + dong, // {"dong": dong} // ==> 전자는 string타입 후자는 json타입
+				dataType: 'json',
+				success: function(datas) {
+					var code = "<table border='1' class='table table-sprited'>";
+					code += "<tr>";
+					code += "<th>우편번호</th>";
+					code += "<th>주소</th>";
+					code += "<th>번지</th>";
+					code += "</tr>";
+					$.each(datas, function(i, v) {
+						code += "<tr class='zipTr'>";
+						code += "<td>" + v.zipcode + "</td>";
+						code += "<td>" + v.addr + "</td>";
+						code += "<td>" + v.bunji + "</td>";
+						code += "</tr>";
+					}) 
+					code += "</table>";
+					$('#result').html(code);
+				},
+				error: function(xhr) {
+					alert("상태: " + xhr.status);
+				}
+			})
+		})
+		
+		// 동 선택
+//		$('.zipTr').on('click', function() {}) // 동적으로 생성된 클래스에 클릭메서드가 작동하지 않는다.
+		$('#result').on('click', '.zipTr', function() { // ==> 델리게이트 방식으로 변경
+			var zipcode = $('td:eq(0)', this).text();
+			var addr = $('td:eq(1)', this).text();
+			var bunji = $('td:eq(2)', this).text();
+			
+			$('#zip').val(zipcode);
+			$('#add1').val(addr + " " + bunji);
+			
+			$('#myModal').modal('hide');
+		})										 
+		
+		// 동 선택 후 모달이 닫힐 때
+		$('#myModal').on('hide.bs.modal', function() {
+			$('#dong').val("");
+			$('#result').empty();
+		})
+		
+		// 제출버튼 클릭
+		$('#btnJoin').on('click', function() {
+			// 입력한 모든 값을 가져온다.
+			var mem_id = $('#id').val();
+			var mem_name = $('#name').val();
+			var mem_birth = $('#birth').val();
+			var mem_pass = $('#pass').val();
+			var mem_hp = $('#hp').val();
+			var mem_mail = $('#mail').val();
+			var mem_zip = $('#zip').val();
+			var mem_add1 = $('#add1').val();
+			var mem_add2 = $('#add2').val();
+	
+			
+//			var memData = "id=" + mem_id + "&mem_name=" + mem_name; // String타입
+			var memData = // json타입
+			{ 
+				"mem_id"   : mem_id,
+				"mem_name" : mem_name,
+				"mem_birth": mem_birth,
+				"mem_pass" : mem_pass,
+				"mem_hp"   : mem_hp,
+				"mem_mail" : mem_mail,
+				"mem_zip"  : mem_zip,
+				"mem_add1" : mem_add1,
+				"mem_add2" : mem_add2
+			}
+			
+			$.ajax({
+				url: '/jqpro/InsertMember',
+				type: 'post',
+				data: memData,
+				dataType: 'json',
+				success: function(res) {
+					
+				},
+				error: function(xhr) {
+					alert("상태: " + xhr.status);
+				}
+			})
+		})
+	})
+</script>
+</head>
+<body>
+	<div class="container">
+        <h2>회원가입</h2>
+		<form name="ff" class="form-group">
+			<fieldset>
+				<label>아이디</label>
+				<input type="text" id="id" name="mem_id" required="required" class="form-control">
+				<input type="button" id="btnId" value="중복검사" class="btn btn-primary">
+				<span id="idchk"></span><br>
+			
+	            <label>이름</label>
+				<input type="text" id="name" name="mem_name" required="required" class="form-control"><br>
+	            
+	            <label>생년월일</label>
+				<input type="text" id="birth" name="mem_birth" required="required" class="form-control"><br>
+	            
+				<label>비밀번호</label>
+				<input type="password" id="pass" name="mem_pass" required="required" class="form-control"><br>
+				
+				<label>휴대폰 번호</label>
+				<input type="text" id="hp" name="mem_hp" required="required" placeholder="000-0000-0000" class="form-control"><br>
+				
+				<label>이메일</label>
+				<input type="text" id="mail" name="mem_mail" required="required" class="form-control"><br>
+	            
+				<label>우편번호</label>
+				<input type="text" id="zip" name="mem_zip" class="form-control">
+	            <input type="button" id="btnZip" data-toggle="modal" data-target="#myModal" value="우편번호검색" class="btn btn-primary"><br>
+	            
+	            <label>주소</label>
+				<input type="text" id="add1" name="mem_add1" size="40" class="form-control"><br>
+	            
+	            <label>상세주소</label>
+				<input type="text" id="add2" name="mem_add2" size="40" class="form-control"><br>
+	            <br>
+			</fieldset>
+	        <br>
+	        <input type="submit" id="btnJoin" value="제출" class="btn btn-primary">
+	        <input type="reset"  value="초기화" class="btn btn-primary">
+	        <span id="joinRes"></span>
+		</form>
+
+	</div>
+	
+	<!-- The Modal -->
+	<div class="modal" id="myModal">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title">우편번호 찾기</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<!-- Modal body -->
+				<div class="modal-body">
+					<p>찾고자 하는 동을 입력하세요.</p>
+					<input type="text" id="dong" class="form-control">
+					<button type="button" id="searchDong" class="btn btn-primary">검색</button>
+					<br><br>
+					<div id="result"></div>
+				</div>
+
+				<!-- Modal footer -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>

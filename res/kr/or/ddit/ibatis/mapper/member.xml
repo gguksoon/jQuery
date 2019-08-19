@@ -15,7 +15,7 @@
 	
 	<!-- 아이디 중복검사 -->
 	<select id="checkId" parameterClass="String" resultClass="int">
-		select count(*)
+		select *
 		  from member
 		 where mem_id = #mem_id#
 	</select>
