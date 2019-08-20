@@ -598,6 +598,27 @@ $.ajax({
 
 
 
+======================================[0820]======================================
+
+ㅁ jQuery를 이용한 AJAX
+   - Ajax를 이용해서 서버에 데이터를 보낼 때 Ajax요청으로 전송할 수 있고,
+     서버가 이해할 수 있는 형식으로 바꿔야 한다.
+   - 데이터를 직렬화하면 하나의 객체로 모을 수 있고 따라서 Ajax요청에서
+     데이터를 한덩어리로 보낼 수 있다.
+   - jQuery에서 제공하는 직렬화 메소드는 serialize
+     ex) $("#my_form").serialize(): 모든 필드를 문자열 하나로 합침
+	==> mem_id=1919&mem_name=1&mem_bir=19920903&mem_pass=9
+
+     ex) $("#my_form").serializeArray()
+	==> [
+		{name: "mem_id", value: "1919"},
+		{name: "mem_name", value: "1"},
+		{name: "mem_bir", value: "19920903"}
+	    ]
+
+     ex) $("#my_form").serializeJSON()
+	==> Object {mem_id : "1919", mem_name : "1", mem_bir : "19920903"}
+
 
 
 

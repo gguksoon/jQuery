@@ -94,5 +94,12 @@ public class MemberVO {
 	public void setMem_mail(String mem_mail) {
 		this.mem_mail = mem_mail;
 	}
+	@Override
+	public String toString() {
+		return "MemberVO [mem_id=" + mem_id + ", mem_pass=" + mem_pass + ", mem_name=" + mem_name + ", mem_regno1="
+				+ mem_regno1 + ", mem_regno2=" + mem_regno2 + ", mem_bir=" + mem_bir + ", mem_zip=" + mem_zip
+				+ ", mem_add1=" + mem_add1 + ", mem_add2=" + mem_add2 + ", mem_hometel=" + mem_hometel + ", mem_comtel="
+				+ mem_comtel + ", mem_hp=" + mem_hp + ", mem_mail=" + mem_mail + "]";
+	}
 	
 }

@@ -4,17 +4,35 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="../js/jquery-3.4.1.min.js"></script>
+<script src="../js/regCheck.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <style>
+	* {
+		font-family: 'NanumSquareRound',sans-serif;
+	}
 	tr:nth-child(odd) {
 		background: #FAFAFA;
 	}
 	.zipTr:hover {
 		background: #F8ECE0;
 		cursor: pointer;
+	}
+	label {
+		width: 100px;
+		text-align: right;
+		padding-right: 10px;
+	}
+	input[type=text], input[type=password] {
+		max-width: 200px;
+		margin-bottom: 20px;
+		display: inline;
+	}
+	#add1, #add2 {
+		max-width: 320px;
 	}
 </style>
 <script>
@@ -23,6 +41,10 @@
 		$("#btnId").on('click', function() {
 			// 입력한 id값을 가져온다.
 			var memId = $('#id').val();
+			
+			if(!idTest()) { // 공백, 길이, 정규식 검증
+				return;
+			}
 			
 			$.ajax({
 				url: '/jqpro/MemberIdCheck',
@@ -42,6 +64,11 @@
 		$("#searchDong").on('click', function() {
 			// 입력한 동을 가져온다.
 			var dong = $('#dong').val();
+			
+			if(!dongTest()) { // 공백 검증
+				return;
+			}
+			
 			$.ajax({
 				url: '/jqpro/DongSelect',
 				type: 'post',
@@ -92,38 +119,49 @@
 		// 제출버튼 클릭
 		$('#btnJoin').on('click', function() {
 			// 입력한 모든 값을 가져온다.
-			var mem_id = $('#id').val();
-			var mem_name = $('#name').val();
-			var mem_birth = $('#birth').val();
-			var mem_pass = $('#pass').val();
-			var mem_hp = $('#hp').val();
-			var mem_mail = $('#mail').val();
-			var mem_zip = $('#zip').val();
-			var mem_add1 = $('#add1').val();
-			var mem_add2 = $('#add2').val();
+// 			var mem_id = $('#id').val();
+// 			var mem_name = $('#name').val();
+// 			var mem_bir = $('#bir').val();
+// 			var mem_pass = $('#pass').val();
+// 			var mem_hp = $('#hp').val();
+// 			var mem_mail = $('#mail').val();
+// 			var mem_zip = $('#zip').val();
+// 			var mem_add1 = $('#add1').val();
+// 			var mem_add2 = $('#add2').val();
 	
 			
 //			var memData = "id=" + mem_id + "&mem_name=" + mem_name; // String타입
-			var memData = // json타입
-			{ 
-				"mem_id"   : mem_id,
-				"mem_name" : mem_name,
-				"mem_birth": mem_birth,
-				"mem_pass" : mem_pass,
-				"mem_hp"   : mem_hp,
-				"mem_mail" : mem_mail,
-				"mem_zip"  : mem_zip,
-				"mem_add1" : mem_add1,
-				"mem_add2" : mem_add2
+
+// 			var memData = // json타입
+// 			{ 
+// 				"mem_id"   : mem_id,
+// 				"mem_name" : mem_name,
+// 				"mem_bir"  : mem_bir,
+// 				"mem_pass" : mem_pass,
+// 				"mem_hp"   : mem_hp,
+// 				"mem_mail" : mem_mail,
+// 				"mem_zip"  : mem_zip,
+// 				"mem_add1" : mem_add1,
+// 				"mem_add2" : mem_add2
+// 			}
+			
+			if(!regTest()) {
+				return;
 			}
+			
+			var dataval;
+			dataval = $('#ff').serialize(); // serialize타입
+			console.log(dataval);
+			dataval = $('#ff').serializeArray(); // serialize타입
+			console.log(dataval);
 			
 			$.ajax({
 				url: '/jqpro/InsertMember',
 				type: 'post',
-				data: memData,
+				data: dataval,
 				dataType: 'json',
 				success: function(res) {
-					
+					$('#joinRes').html(res.res).css('color', 'red');
 				},
 				error: function(xhr) {
 					alert("상태: " + xhr.status);
@@ -136,7 +174,7 @@
 <body>
 	<div class="container">
         <h2>회원가입</h2>
-		<form name="ff" class="form-group">
+		<form name="ff" id="ff" method="post" class="form-group">
 			<fieldset>
 				<label>아이디</label>
 				<input type="text" id="id" name="mem_id" required="required" class="form-control">
@@ -144,15 +182,15 @@
 				<span id="idchk"></span><br>
 			
 	            <label>이름</label>
-				<input type="text" id="name" name="mem_name" required="required" class="form-control"><br>
+				<input type="text" id="name" name="mem_name" required="required" class="form-control" value="이름"><br>
 	            
 	            <label>생년월일</label>
-				<input type="text" id="birth" name="mem_birth" required="required" class="form-control"><br>
+				<input type="text" id="bir" name="mem_bir" required="required" class="form-control" value="19920903"><br>
 	            
 				<label>비밀번호</label>
-				<input type="password" id="pass" name="mem_pass" required="required" class="form-control"><br>
+				<input type="password" id="pass" name="mem_pass" required="required" class="form-control" value="aaaabbbbQ!1"><br>
 				
-				<label>휴대폰 번호</label>
+				<label>전화번호</label>
 				<input type="text" id="hp" name="mem_hp" required="required" placeholder="000-0000-0000" class="form-control"><br>
 				
 				<label>이메일</label>
@@ -170,9 +208,9 @@
 	            <br>
 			</fieldset>
 	        <br>
-	        <input type="submit" id="btnJoin" value="제출" class="btn btn-primary">
+	        <input type="button" id="btnJoin" value="제출" class="btn btn-primary">
 	        <input type="reset"  value="초기화" class="btn btn-primary">
-	        <span id="joinRes"></span>
+	        <span id="joinRes">여긴스판</span>
 		</form>
 
 	</div>
