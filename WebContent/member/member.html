@@ -3,16 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="../js/jquery-3.4.1.min.js"></script>
-<script src="../js/regCheck.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
+
+<!-- <script src="../js/jquery-3.4.1.min.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script> -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
+<script src="../js/regCheck.js"></script>
 <style>
 	* {
 		font-family: 'NanumSquareRound',sans-serif;
+	}
+	body {
+		padding-top: 50px;
+	}
+	hr {
+		padding: 5px 10px;
+		color: silver;
+	}
+	.container {
+/* 		border: 2px solid red; */
+		width: 500px;
+		padding-top: 10px;
+	}
+	h1 {
+		text-align: center;
+	}
+	#bottomDiv {
+		text-align: right;
+	}
+	button {
+		background: red; 
 	}
 	tr:nth-child(odd) {
 		background: #FAFAFA;
@@ -22,7 +44,7 @@
 		cursor: pointer;
 	}
 	label {
-		width: 100px;
+		width: 80px;
 		text-align: right;
 		padding-right: 10px;
 	}
@@ -32,7 +54,7 @@
 		display: inline;
 	}
 	#add1, #add2 {
-		max-width: 320px;
+		max-width: 380px;
 	}
 </style>
 <script>
@@ -173,12 +195,13 @@
 </head>
 <body>
 	<div class="container">
-        <h2>회원가입</h2>
+        <h1>회원가입</h1>
+        <hr>
 		<form name="ff" id="ff" method="post" class="form-group">
 			<fieldset>
 				<label>아이디</label>
 				<input type="text" id="id" name="mem_id" required="required" class="form-control">
-				<input type="button" id="btnId" value="중복검사" class="btn btn-primary">
+				<input type="button" id="btnId" value="중복검사" class="btn btn-secondary">
 				<span id="idchk"></span><br>
 			
 	            <label>이름</label>
@@ -191,28 +214,29 @@
 				<input type="password" id="pass" name="mem_pass" required="required" class="form-control" value="aaaabbbbQ!1"><br>
 				
 				<label>전화번호</label>
-				<input type="text" id="hp" name="mem_hp" required="required" placeholder="000-0000-0000" class="form-control"><br>
+				<input type="text" id="hp" name="mem_hp" required="required" placeholder="010-1234-5678" class="form-control" value="010-1234-5678"><br>
 				
 				<label>이메일</label>
-				<input type="text" id="mail" name="mem_mail" required="required" class="form-control"><br>
+				<input type="text" id="mail" name="mem_mail" required="required" class="form-control" value="mingsoo0807@gmail.com"><br>
 	            
 				<label>우편번호</label>
 				<input type="text" id="zip" name="mem_zip" class="form-control">
-	            <input type="button" id="btnZip" data-toggle="modal" data-target="#myModal" value="우편번호검색" class="btn btn-primary"><br>
+	            <input type="button" id="btnZip" data-toggle="modal" data-target="#myModal" value="우편번호검색" class="btn btn-secondary"><br>
 	            
 	            <label>주소</label>
 				<input type="text" id="add1" name="mem_add1" size="40" class="form-control"><br>
 	            
 	            <label>상세주소</label>
 				<input type="text" id="add2" name="mem_add2" size="40" class="form-control"><br>
-	            <br>
+	            
 			</fieldset>
-	        <br>
-	        <input type="button" id="btnJoin" value="제출" class="btn btn-primary">
-	        <input type="reset"  value="초기화" class="btn btn-primary">
-	        <span id="joinRes">여긴스판</span>
+	        <hr>
+	        <div id="bottomDiv">
+		        <span id="joinRes"></span>
+		        <input type="button" id="btnJoin" value="제출" class="btn btn-secondary">
+		        <input type="reset"  value="초기화" class="btn btn-secondary">
+	        </div>
 		</form>
-
 	</div>
 	
 	<!-- The Modal -->
@@ -239,7 +263,6 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 				</div>
-
 			</div>
 		</div>
 	</div>

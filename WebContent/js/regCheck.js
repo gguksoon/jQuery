@@ -1,7 +1,4 @@
-/**
- * 
- */
-
+/** [아이디] 공백, 길이, 정규식 검증 **/
 var idTest = function() {
 	var idVal = $("#id").val();
 	
@@ -21,7 +18,7 @@ var idTest = function() {
 	
 	// 정규식 검증
 	// ex) 영문소문자로 시작하고 한개 이상의 숫자와 영문자의 조합
-	var regId = /^[a-z]+[0-9]+[a-zA-Z]{2,10}$/;
+	var regId = /^[a-z]+[0-9a-zA-Z]{3,11}$/;
 	if( !(regId.test(idVal)) ) {
 		alert("아이디 형식 오류입니다.");
 		$('#id').focus();
@@ -32,6 +29,7 @@ var idTest = function() {
 	return true;
 }
 
+/** [동] 공백 검증 **/
 var dongTest = function() {
 	var dongVal = $("#dong").val();
 	
@@ -46,6 +44,8 @@ var dongTest = function() {
 	return true;
 }
 
+
+/** [이름/비번/전번/메일] 공백, 길이, 정규식 검증 **/
 var regTest = function() {
 
 	/**************************************** 이름 ****************************************/
@@ -139,9 +139,24 @@ var regTest = function() {
 	}
 	
 	/**************************************** 이메일 ****************************************/
-	var mailVal = $("#mail").val();
+	var mailVal = $("#mail").val().trim();
 	
+	// 이메일 공백 검증
+	if(mailVal.length == 0) {
+		alert("이메일을 입력하세요.");
+		$("#mail").focus();
+		return false;
+	}
 	
+	// 이메일 정규식 검증
+	var regMail = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+(\.[a-zA-Z0-9]+){1,2}$/;
+	if(!(regMail.test(mailVal))) {
+		alert("이메일 형식 오류입니다.");
+		$("mail").focus();
+		return false;
+	}
+	
+	/**************************************** 모든 검증 통과 ****************************************/
 	return true;
 	
 }
