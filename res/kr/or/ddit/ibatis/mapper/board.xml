@@ -6,9 +6,22 @@
 <sqlMap namespace="board">
 
 	<!-- board 전체 반환 -->
-	<select id="selectAll" resultClass="buyerVO">
+	<select id="selectAll" resultClass="boardVO">
 		select *
-		  from buyer
+		  from board
+		 order by seq desc
 	</select>
+	
+	<insert id="insertBoard" parameterClass="boardVO">
+		insert into board
+			   values(board_seq.nextval, #subject#, #writer#, #mail#, #password#, #content#, 0, #wip#, sysdate)
+			   
+		<selectKey keyProperty="seq" resultClass="int">
+			select board_seq.currval
+			  from dual
+		</selectKey>
+	</insert>
+	
+	
 	
 </sqlMap>

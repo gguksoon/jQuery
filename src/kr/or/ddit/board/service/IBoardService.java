@@ -7,4 +7,6 @@ import kr.or.ddit.board.vo.BoardVO;
 public interface IBoardService {
 	
 	public List<BoardVO> selectAll();
+	
+	public int insertBoard(BoardVO boardVo);
 }
