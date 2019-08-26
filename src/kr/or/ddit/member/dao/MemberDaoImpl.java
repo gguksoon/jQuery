@@ -1,7 +1,9 @@
 package kr.or.ddit.member.dao;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
 
@@ -63,6 +65,61 @@ public class MemberDaoImpl implements IMemberDao {
 	}
 
 	@Override
+	public List<String> searchZipSido() {
+		List<String> sidoList = null;
+		
+		try {
+			sidoList = (List<String>) client.queryForList("member.searchZipSido");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return sidoList;
+	}
+
+	@Override
+	public List<String> searchZipGugun(String sido) {
+		List<String> gugunList = null;
+		
+		try {
+			gugunList = (List<String>) client.queryForList("member.searchZipGugun", sido);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return gugunList;
+	}
+
+	@Override
+	public List<String> searchZipDong(String sido, String gugun) {
+		List<String> dongList = null;
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("sido", sido);
+		map.put("gugun", gugun);
+		
+		try {
+			dongList = (List<String>) client.queryForList("member.searchZipDong", map);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return dongList;
+	}
+	
+	@Override
+	public List<ZipVO> searchZipResult(Map<String, String> map) {
+		List<ZipVO> zipList = null;
+		
+		try {
+			zipList = (List<ZipVO>) client.queryForList("member.searchZipResult", map);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return zipList;
+	}
+	
+	@Override
 	public int insertMember(MemberVO memberVo) {
 		int cnt = 0;
 		
@@ -75,5 +132,4 @@ public class MemberDaoImpl implements IMemberDao {
 		
 		return cnt;
 	}
-
 }

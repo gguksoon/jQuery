@@ -22,6 +22,35 @@
 		</selectKey>
 	</insert>
 	
+	<delete id="deleteBoard" parameterClass="int">
+		delete from board
+		 where seq = #data#
+	</delete>
+
+ 	<insert id="insertReply" parameterClass="replyVO">
+		insert into reply
+		       values(reply_seq.nextval, #bonum#, #name#, #cont#, sysdate)
+
+ 		<selectKey keyProperty="renum" resultClass="int">
+			select reply_seq.currval
+			  from dual
+		</selectKey>
+	</insert>
+
+ 	<select id="listReply" parameterClass="int" resultClass="replyVO">
+		select *
+		  from reply
+		 where bonum = #bonum#
+	</select>
 	
+	<delete id="deleteReply" parameterClass="int">
+		delete from reply
+		 where renum = #renum# 
+	</delete>
 	
+	<update id="modifyReply" parameterClass="map">
+		update reply 
+		   set cont = #cont#
+		 where renum = #renum# 
+	</update>
 </sqlMap>

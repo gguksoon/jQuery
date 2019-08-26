@@ -19,6 +19,7 @@
 	<typeAlias alias="buyerVO" type="kr.or.ddit.buyer.vo.BuyerVO"/>
 	<typeAlias alias="prodVO"  type="kr.or.ddit.prod.vo.ProdVO"/>
 	<typeAlias alias="boardVO" type="kr.or.ddit.board.vo.BoardVO"/>
+	<typeAlias alias="replyVO" type="kr.or.ddit.board.vo.ReplyVO"/>
 	
 	<transactionManager type="JDBC">
 		<dataSource type="SIMPLE">

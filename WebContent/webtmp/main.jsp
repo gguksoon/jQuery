@@ -84,9 +84,9 @@
   		$(".text-left h1").text(subTxt);
   		
   		if(subTxt == "회원가입") {
-  			$(".text-left #result").load("/jqpro/member/member.html");
+  			$(".text-left #result2").load("/jqpro/member/member.html");
   		} else if(subTxt == "Login") {
-  			$(".text-left #result").load("/jqpro/0812/lprod_prod.html");
+  			$(".text-left #result2").load("/jqpro/0812/lprod_prod.html");
   		}
   	}
   </script>

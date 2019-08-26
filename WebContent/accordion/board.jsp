@@ -10,19 +10,108 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script src="../js/board.js"></script>
+<link rel="stylesheet" href="../css/board.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">
+<style>
+	* {
+		font-family: 'NanumSquareRound',sans-serif;
+	}
+</style>
 <script>
+	reply = {};
 	$(function() {
 		readServer();
 		
 		$("#w_submit").on("click", function() {
 			writeServer();
-			$("#myModal").modal("hide");
+// 			$("#myModal").modal("hide");
 		})
-	})
+		
+		$('.modal').on('hide.bs.modal', function(){
+			$('.text', this).val("");
+		})
+    
+		//버튼의 class = action (board.js) -> 수정, 삭제, 댓글 등록, 댓글 삭제, 댓글 수정
+	    //delegate 방식
+    	$('#accordionList').on('click', '.action', function(){
+    		
+       		bname = $(this).attr('name');
+//     		bidx = $(this).attr('idx');
+       		bidx = $(this).data('idx');
+       		if(bname == "delete"){
+          		deleteServer(bidx);
+       		}else if(bname=="modify"){
+       			
+       		}else if(bname == "reply"){
+	          	//댓글등록. 입력한 내용을 가져온다
+	          	text = $(this).parent().find('.area').val();
+	          	name = "korea";
+	          	
+	          	reply.name = name;
+	          	reply.cont = text;
+	          	reply.bonum = bidx;
+	          	
+	          	replySaveServer(); // 비동기처리를 동기처리로 변환
+	          	replyListServer(bidx, this);
+       		} else if(bname == "list") {
+       			replyListServer(bidx, this);
+       		} else if(bname == "r_delete") {
+       			replyDeleteServer(bidx, this);
+       		} else if(bname == "r_modify") {
+       			if($("#modifyForm").css("display") != "none") {
+       				replyReset();
+				}
+       			
+       			rnum = bidx;
+       			modifycont = $(this).parents(".rep").find(".cont").html().replace(/<br>/g, "\n");
+       			
+       			$("#modifyForm > #test").val(modifycont);
+       			
+       			$(this).parents(".rep").find(".cont").empty().append($("#modifyForm"));
+       			$("#modifyForm").show();
+       			
+//     			replyModifyServer(bidx, this);
+       		}
+    	});
+		
+		function replyReset() {
+			var spanTag = $("#modifyForm").parent();
+			
+			$("body").append($("#modifyForm"));
+			$("#modifyForm").hide();
+			
+			spanTag.html(modifycont.replace(/\n/g, "<br>"));
+		}
+		
+		$("#btnreset").on("click", function() {
+			replyReset();
+		});
+		
+		$("#btnok").on("click", function() {
+			var modifyCont = $("#modifyForm > #test").val();
+			var spanTag = $("#modifyForm").parent();
+			
+			reply.renum = rnum;
+			reply.cont = modifyCont;
+			replyUpdateServer();
+			
+			$("body").append($("#modifyForm"));
+			$("#modifyForm").hide();
+			
+			spanTag.html(modifyCont.replace(/\n/g, "<br>"));
+		});
+	});
 </script>
 </head>
 
 <body>
+	
+	<div id="modifyForm" style="display:none;">
+		<textarea id="test" rows="5" cols="50"></textarea>
+		<input type="button" value="확인" id="btnok" class="btn btn-default">
+		<input type="button" value="취소" id="btnreset" class="btn btn-default">
+	</div>
+		
 	<div id="ss"></div>
 	<!-- 게시판 목록 출력 -->
 	<div class="container">

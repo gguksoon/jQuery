@@ -5,11 +5,11 @@
 <title>Insert title here</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
-<!-- <script src="../js/jquery-3.4.1.min.js"></script> -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script> -->
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
+<script src="../js/jquery-3.4.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="../js/regCheck.js"></script>
 <style>
 	* {
@@ -119,6 +119,107 @@
 			})
 		})
 		
+		// =========================================================================================
+		// 주소 분류 검색 초기화(시/도 불러오기)
+		$.ajax({
+			url: '/jqpro/ZipSelect',
+			type: 'post',
+			dataType: 'json',
+			success: function(datas) {
+				var code = '<option selected disabled hidden="true">시/도</option>';
+				$.each(datas, function(i, v) {
+					code += '<option value="'+ v.res +'">'+ v.res +'</option>';
+				}) 
+				$('#sel1').html(code);
+			},
+			error: function(xhr) {
+				alert("상태: " + xhr.status);
+			}
+		})
+		
+		// 시/도 변경 시
+		$("#sel1").on("change", function() {
+			// 읍/면/동을 비워준다.
+			$("#sel3").empty();
+			// 결과창을 비워준다.
+			$("#result").empty();
+			
+			$.ajax({
+				url: '/jqpro/ZipSelect',
+				type: 'post',
+				data: {"sido": $("#sel1 option:selected").val()},
+				dataType: 'json',
+				dataType: 'json',
+				success: function(datas) {
+					var code = '<option selected disabled hidden="true">구/군</option>';
+					$.each(datas, function(i, v) {
+						code += '<option value="'+ v.res +'">'+ v.res +'</option>';
+					}) 
+					$('#sel2').html(code);
+				},
+				error: function(xhr) {
+					alert("상태: " + xhr.status);
+				}
+			})
+		})
+		
+		// 구/군 변경 시
+		$("#sel2").on("change", function() {
+			// 결과창을 비워준다.
+			$("#result").empty();
+			
+			$.ajax({
+				url: '/jqpro/ZipSelect',
+				type: 'post',
+				data: {"sido": $("#sel1 option:selected").val(), "gugun": $("#sel2 option:selected").val()},
+				dataType: 'json',
+				dataType: 'json',
+				success: function(datas) {
+					var code = '<option selected disabled hidden="true">읍/면/동</option>';
+					$.each(datas, function(i, v) {
+						code += '<option value="'+ v.res +'">'+ v.res +'</option>';
+					}) 
+					$('#sel3').html(code);
+				},
+				error: function(xhr) {
+					alert("상태: " + xhr.status);
+				}
+			})
+		})
+		
+		// 읍/면/동 변경 시
+		$("#sel3").on("change", function() {
+			$.ajax({
+				url: '/jqpro/ZipSelect2',
+				type: 'post',
+				data: {"sido": $("#sel1 option:selected").val(),
+					   "gugun": $("#sel2 option:selected").val(),
+					   "dong": $("#sel3 option:selected").val()},
+				dataType: 'json',
+				success: function(datas) {
+					var code = "<table border='1' class='table table-sprited'>";
+					code += "<tr>";
+					code += "<th>우편번호</th>";
+					code += "<th>주소</th>";
+					code += "<th>번지</th>";
+					code += "</tr>";
+					$.each(datas, function(i, v) {
+						code += "<tr class='zipTr'>";
+						code += "<td>" + v.zipcode + "</td>";
+						code += "<td>" + v.addr + "</td>";
+						code += "<td>" + v.bunji + "</td>";
+						code += "</tr>";
+					}) 
+					code += "</table>";
+					$('#result').html(code);
+				},
+				error: function(xhr) {
+					alert("상태: " + xhr.status);
+				}
+			})
+		})
+		// =========================================================================================
+		
 		// 동 선택
 //		$('.zipTr').on('click', function() {}) // 동적으로 생성된 클래스에 클릭메서드가 작동하지 않는다.
 		$('#result').on('click', '.zipTr', function() { // ==> 델리게이트 방식으로 변경
@@ -140,33 +241,6 @@
 		
 		// 제출버튼 클릭
 		$('#btnJoin').on('click', function() {
-			// 입력한 모든 값을 가져온다.
-// 			var mem_id = $('#id').val();
-// 			var mem_name = $('#name').val();
-// 			var mem_bir = $('#bir').val();
-// 			var mem_pass = $('#pass').val();
-// 			var mem_hp = $('#hp').val();
-// 			var mem_mail = $('#mail').val();
-// 			var mem_zip = $('#zip').val();
-// 			var mem_add1 = $('#add1').val();
-// 			var mem_add2 = $('#add2').val();
-	
-			
-//			var memData = "id=" + mem_id + "&mem_name=" + mem_name; // String타입
-
-// 			var memData = // json타입
-// 			{ 
-// 				"mem_id"   : mem_id,
-// 				"mem_name" : mem_name,
-// 				"mem_bir"  : mem_bir,
-// 				"mem_pass" : mem_pass,
-// 				"mem_hp"   : mem_hp,
-// 				"mem_mail" : mem_mail,
-// 				"mem_zip"  : mem_zip,
-// 				"mem_add1" : mem_add1,
-// 				"mem_add2" : mem_add2
-// 			}
-			
 			if(!regTest()) {
 				return;
 			}
@@ -190,6 +264,10 @@
 				}
 			})
 		})
+		
+		$("#btnZip").on("click", function() {
+			$("#myModal").modal("show");
+		});
 	})
 </script>
 </head>
@@ -221,7 +299,7 @@
 	            
 				<label>우편번호</label>
 				<input type="text" id="zip" name="mem_zip" class="form-control">
-	            <input type="button" id="btnZip" data-toggle="modal" data-target="#myModal" value="우편번호검색" class="btn btn-secondary"><br>
+	            <input type="button" id="btnZip" value="우편번호검색" class="btn btn-secondary"><br>
 	            
 	            <label>주소</label>
 				<input type="text" id="add1" name="mem_add1" size="40" class="form-control"><br>
@@ -252,12 +330,29 @@
 
 				<!-- Modal body -->
 				<div class="modal-body">
-					<p>찾고자 하는 동을 입력하세요.</p>
-					<input type="text" id="dong" class="form-control">
-					<button type="button" id="searchDong" class="btn btn-primary">검색</button>
-					<br><br>
-					<div id="result"></div>
+					<div class="container">
+						<p>동으로 검색</p>
+						<input type="text" id="dong" class="form-control">
+						<button type="button" id="searchDong" class="btn btn-primary">검색</button>
+						<p>분류로 검색</p>
+						<form>
+							<div class="form-group">
+								<div class="input-group" id="selBox">
+									<select class="form-control col-sm-3" id="sel1">
+									</select>
+									&nbsp;&nbsp;&nbsp;
+									<select class="form-control col-sm-3" id="sel2">
+									</select>
+									&nbsp;&nbsp;&nbsp;
+									<select class="form-control col-sm-3" id="sel3">
+									</select>
+								</div>
+							</div>
+						</form>
+						<div id="result"></div>
+					</div>
 				</div>
+				
 
 				<!-- Modal footer -->
 				<div class="modal-footer">

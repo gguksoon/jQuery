@@ -1,6 +1,7 @@
 package kr.or.ddit.member.service;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.or.ddit.member.dao.IMemberDao;
 import kr.or.ddit.member.dao.MemberDaoImpl;
@@ -37,8 +38,27 @@ public class MemberServiceImpl implements IMemberService {
 	}
 
 	@Override
+	public List<String> searchZipSido() {
+		return dao.searchZipSido();
+	}
+
+	@Override
+	public List<String> searchZipGugun(String sido) {
+		return dao.searchZipGugun(sido);
+	}
+
+	@Override
+	public List<String> searchZipDong(String sido, String gugun) {
+		return dao.searchZipDong(sido, gugun);
+	}
+	
+	@Override
+	public List<ZipVO> searchZipResult(Map<String, String> map) {
+		return dao.searchZipResult(map);
+	}
+
+	@Override
 	public int insertMember(MemberVO memberVo) {
 		return dao.insertMember(memberVo);
 	}
-
 }

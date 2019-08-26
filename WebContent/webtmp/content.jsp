@@ -17,7 +17,7 @@
 		<div class="col-sm-10 text-left">
 			<h1>Welcome</h1>
 			<hr>
-			<div id="result"></div>
+			<div id="result2"></div>
 		</div>
 		
 	</div>
